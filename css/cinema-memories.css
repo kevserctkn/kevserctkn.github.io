@@ -1,0 +1,24 @@
+
+/* Second act: original film countdown -> animated memories -> original gallery */
+#cinema-intro{background:#09080b}
+#cinema-intro .cinema-memories{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;overflow:hidden;opacity:0;visibility:hidden;pointer-events:none;background:radial-gradient(ellipse at center,#28202a 0%,#0b090d 75%);isolation:isolate}
+#cinema-intro.memories-active video{opacity:0;transition:opacity .6s ease}
+#cinema-intro.memories-active .cinema-memories{opacity:1;visibility:visible;transition:opacity .7s ease}
+.cinema-memories:before{content:'';position:absolute;inset:0;z-index:5;pointer-events:none;opacity:.26;background:repeating-linear-gradient(90deg,transparent 0 72px,#ffffff13 73px,transparent 74px),repeating-linear-gradient(0deg,transparent 0 5px,#ffffff09 6px,transparent 7px);animation:ksGrain .25s steps(3) infinite}
+@keyframes ksGrain{0%{transform:translate(0,0)}50%{transform:translate(3px,-4px)}100%{transform:translate(-2px,2px)}}
+.ks-film-strip{position:absolute;display:flex;align-items:center;gap:14px;width:max-content;padding:13px 14px;border-top:15px dashed #b9a5a2;border-bottom:15px dashed #b9a5a2;background:#211c24;box-shadow:0 20px 65px #0009;opacity:0;filter:grayscale(1);will-change:transform;transform-origin:center}
+.ks-film-strip img{display:block;width:clamp(120px,18vw,260px);height:clamp(110px,25vh,220px);object-fit:cover;opacity:.88}
+.ks-film-strip.a{top:9%;left:-25%;transform:rotate(-13deg) translateX(-50vw)}
+.ks-film-strip.b{bottom:8%;right:-25%;transform:rotate(12deg) translateX(50vw)}
+.memories-active .ks-film-strip.a{opacity:.8;animation:ksFilmA 5.2s ease-in-out forwards}
+.memories-active .ks-film-strip.b{opacity:.7;animation:ksFilmB 5.2s ease-in-out forwards}
+@keyframes ksFilmA{0%{transform:rotate(-13deg) translateX(-50vw)}100%{transform:rotate(-9deg) translateX(52vw)}}
+@keyframes ksFilmB{0%{transform:rotate(12deg) translateX(50vw)}100%{transform:rotate(8deg) translateX(-52vw)}}
+.ks-memories-title{position:relative;z-index:4;text-align:center;color:#fff4e9;text-shadow:0 8px 35px #000;font:400 clamp(55px,12vw,170px)/.95 Georgia,serif;letter-spacing:.11em;opacity:0;transform:translateY(32px) scale(.86);filter:blur(12px)}
+.ks-memories-title small{display:block;font:500 clamp(11px,1.4vw,17px)/1.5 system-ui;letter-spacing:.38em;margin-top:24px}
+.memories-active .ks-memories-title{animation:ksTitle 3.6s .65s ease-out forwards}
+@keyframes ksTitle{0%{opacity:0;transform:translateY(32px) scale(.86);filter:blur(12px)}35%,80%{opacity:1;transform:translateY(0) scale(1);filter:blur(0)}100%{opacity:0;transform:translateY(-12px) scale(1.06);filter:blur(4px)}}
+#cinema-intro .cinema-burn{z-index:6}
+#cinema-intro .cinema-vignette{z-index:2}
+#cinema-skip{z-index:10}
+@media(prefers-reduced-motion:reduce){.memories-active .ks-film-strip,.memories-active .ks-memories-title,.cinema-memories:before{animation:none!important}.memories-active .ks-memories-title{opacity:1;filter:none;transform:none}}

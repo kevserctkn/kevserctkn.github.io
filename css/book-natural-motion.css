@@ -1,0 +1,13 @@
+/* Subtle physical-book motion; content remains still and readable. */
+.book-stage{--light-x:42%;--light-y:20%;isolation:isolate}
+.book-pages{animation:bookSettle 1.05s cubic-bezier(.16,.7,.2,1) both;transition:filter .35s ease}
+@keyframes bookSettle{0%{transform:translateY(12px) rotateX(4deg) scale(.985);filter:drop-shadow(0 9px 10px #26143c18)}65%{transform:translateY(-3px) rotateX(-1deg) scale(1.003)}100%{transform:translateY(0) rotateX(0) scale(1)}}
+.book-spread.is-active .book-page{background-blend-mode:normal;transition:box-shadow .35s ease}
+.book-spread.is-active .book-page::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:5;background:radial-gradient(ellipse 70% 85% at var(--light-x) var(--light-y),rgba(255,246,205,.15),transparent 80%);opacity:.75;transition:opacity .4s ease}
+.book-spread.is-active .book-page:last-child::before{content:"";position:absolute;right:0;bottom:0;width:38px;height:38px;pointer-events:none;z-index:6;border-radius:0 0 12px 0;background:linear-gradient(135deg,transparent 49%,#ddcbb5 51%,#fff8e8 76%);filter:drop-shadow(-2px -3px 3px #3d293324);transform-origin:100% 100%;animation:cornerBreathe 5.8s ease-in-out infinite}
+@keyframes cornerBreathe{0%,75%,100%{transform:scale(.78) rotate(0deg)}85%{transform:scale(1.04) rotate(-3deg)}}
+.book-stage:hover .book-spread.is-active .book-page:last-child::before{animation-play-state:paused;transform:scale(1.16) rotate(-4deg)}
+.book-spread.turn-next .book-page,.book-spread.turn-prev .book-page{animation:paperShadow .55s ease-out}
+@keyframes paperShadow{0%{filter:brightness(.92)}48%{filter:brightness(.97)}100%{filter:brightness(1)}}
+@media(max-width:700px){.book-spread.is-active .book-page:last-child::before{display:none}.book-spread.is-active .book-page.mobile-active::before{content:"";display:block;position:absolute;right:0;bottom:0;width:30px;height:30px;pointer-events:none;background:linear-gradient(135deg,transparent 49%,#dfcfbb 51%,#fff8e8 80%);border-radius:0 0 10px 0;z-index:6;animation:cornerBreathe 5.8s ease-in-out infinite}}
+@media(prefers-reduced-motion:reduce){.book-pages,.book-spread.is-active .book-page::before,.book-spread.turn-next .book-page,.book-spread.turn-prev .book-page{animation:none!important}}

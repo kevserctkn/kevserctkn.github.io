@@ -1,0 +1,7 @@
+/* Design review: keyboard access, readable text, reduced motion preference. */
+.skip-content {position:fixed;top:12px;left:12px;z-index:2147483647;transform:translateY(-200%);padding:12px 18px;background:#f5edf8;color:#241a30;border-radius:6px;}
+.skip-content:focus {transform:none;}
+:where(a,button,input,textarea,select,summary,[tabindex]):focus-visible {outline:3px solid #d6a8ff !important;outline-offset:4px !important;box-shadow:0 0 0 2px #241a30;}
+.premium-lead {max-width:65ch;line-height:1.65;}
+.premium-hello,.premium-kicker {text-transform:none;}
+@media (prefers-reduced-motion: reduce) {html {scroll-behavior:auto !important;} *,*::before,*::after {scroll-behavior:auto !important;} .premium-hero-grain {animation:none !important;} a,button,input,textarea {transition-duration:0.01ms !important;}}

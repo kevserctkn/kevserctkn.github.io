@@ -1,0 +1,27 @@
+/* Colorful gallery skin — isolated to gallery pages */
+body.gallery-color-page{background:#100c20!important;color:#f7f1ff!important}
+.gallery-color-page main.section-padding{position:relative;background:radial-gradient(ellipse at 10% 15%,#742caa66,transparent 42%),radial-gradient(ellipse at 92% 32%,#b53ac655,transparent 42%),radial-gradient(ellipse at 48% 95%,#315ac34a,transparent 45%),#100c20!important;min-height:80vh;isolation:isolate}
+.gallery-color-page main.section-padding:before{content:'';position:absolute;inset:0;background-image:radial-gradient(#ffffff24 1px,transparent 1px);background-size:24px 24px;opacity:.23;z-index:-1;pointer-events:none}
+.gallery-color-page .page-header-section{background:linear-gradient(120deg,#19112f,#40155a 55%,#20143b)!important;border-bottom:1px solid #b879dd88!important}
+.gallery-color-page .page-header-section h1{color:#fff!important;text-shadow:0 0 24px #ed6cff66}
+.gallery-color-page .page-header-section p{color:#e8d8f5!important}
+.gallery-color-page .section-header{position:relative;text-align:center!important;padding:28px 10px 38px!important}
+.gallery-color-page .section-header:before{content:'✦  CREATIVE COLLECTION  ✦';display:block;color:#f2a7ff;letter-spacing:.28em;font-size:11px;font-weight:800;margin-bottom:18px}
+.gallery-color-page .section-header h2{font-size:clamp(36px,5vw,68px)!important;line-height:1.05!important;letter-spacing:-.07em!important;background:linear-gradient(100deg,#fff 18%,#f3a7ff 60%,#ab9aff);-webkit-background-clip:text;background-clip:text;color:transparent!important;text-shadow:none!important}
+.gallery-color-page .section-header .section-desc{color:#dfd1e9!important;max-width:680px;margin:16px auto 0!important}
+.gallery-color-page .gallery-grid{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:24px!important;align-items:stretch}
+.gallery-color-page .gallery-card{position:relative;background:linear-gradient(155deg,#302043,#1a1530)!important;border:1px solid #ad75d68a!important;border-radius:19px!important;overflow:hidden!important;box-shadow:0 12px 36px #0006,0 0 0 1px #fff1 inset!important;transition:transform .4s cubic-bezier(.2,.8,.2,1),box-shadow .4s ease,border-color .4s ease!important}
+.gallery-color-page .gallery-card:nth-child(3n+2){border-color:#ff8ba38c!important}
+.gallery-color-page .gallery-card:nth-child(3n){border-color:#7b9eff9c!important}
+.gallery-color-page .gallery-card:hover{transform:translateY(-12px) scale(1.018)!important;box-shadow:0 24px 60px #0009,0 0 35px #e05aff45!important;border-color:#e9b3ff!important}
+.gallery-color-page .gallery-img-wrapper{position:relative;overflow:hidden!important;background:#261a3b!important}
+.gallery-color-page .gallery-img-wrapper:after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,transparent 60%,#21142e8a);pointer-events:none}
+.gallery-color-page .gallery-img{display:block;width:100%!important;height:255px!important;object-fit:cover!important;transition:transform .75s cubic-bezier(.2,.8,.2,1),filter .5s ease!important}
+.gallery-color-page .gallery-card:hover .gallery-img{transform:scale(1.095)!important;filter:saturate(1.22)!important}
+.gallery-color-page .gallery-caption{padding:20px 21px 24px!important;background:transparent!important;color:#fff!important}
+.gallery-color-page .gallery-caption h3,.gallery-color-page .gallery-title{color:#fff!important;font-size:clamp(17px,1.6vw,23px)!important;letter-spacing:-.04em!important;line-height:1.25!important}
+.gallery-color-page .gallery-caption p,.gallery-color-page .gallery-desc{color:#cfc2de!important;line-height:1.65!important}
+.gallery-color-page .gallery-card:before{content:'✦';position:absolute;top:13px;right:14px;z-index:3;display:grid;place-items:center;width:35px;height:35px;border-radius:50%;background:#1b1238c9;color:#f5bbff;border:1px solid #ffffff5c;font-size:17px;pointer-events:none}
+@media(max-width:900px){.gallery-color-page .gallery-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
+@media(max-width:580px){.gallery-color-page .gallery-grid{grid-template-columns:1fr!important;gap:18px!important}.gallery-color-page .gallery-img{height:240px!important}}
+@media(prefers-reduced-motion:reduce){.gallery-color-page .gallery-card,.gallery-color-page .gallery-img{transition:none!important}.gallery-color-page .gallery-card:hover{transform:none!important}}

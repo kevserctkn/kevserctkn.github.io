@@ -1,0 +1,26 @@
+
+/* Awwwards-inspired motion layer — progressive enhancement */
+.motion-progress{position:fixed;top:0;left:0;height:3px;width:0;background:#d4fc66;z-index:3000;pointer-events:none}
+.motion-reveal{opacity:0;transform:translate3d(0,55px,0);transition:opacity .85s ease,transform .85s cubic-bezier(.2,.8,.2,1)}
+.motion-reveal.motion-visible{opacity:1;transform:translate3d(0,0,0)}
+.motion-reveal.motion-slide-left{transform:translate3d(-70px,0,0)}
+.motion-reveal.motion-slide-right{transform:translate3d(70px,0,0)}
+.motion-reveal.motion-visible.motion-slide-left,.motion-reveal.motion-visible.motion-slide-right{transform:translate3d(0,0,0)}
+.motion-words .motion-word{display:inline-block;overflow:hidden;vertical-align:bottom;padding-bottom:.08em}
+.motion-words .motion-word-inner{display:inline-block;transform:translateY(110%);opacity:0;transition:transform .85s cubic-bezier(.2,.8,.2,1),opacity .8s ease;transition-delay:var(--word-delay,0ms)}
+.motion-words.motion-visible .motion-word-inner{transform:translateY(0);opacity:1}
+.remix-hero .wix-lavender-card{animation:none!important;will-change:transform;transition:transform .2s linear!important}
+.remix-hero .wix-lavender-card:hover{filter:brightness(1.07)}
+.motion-glow{position:fixed;left:0;top:0;width:340px;height:340px;border-radius:50%;background:radial-gradient(circle,rgba(212,252,102,.12),rgba(255,120,89,.05) 40%,transparent 70%);transform:translate3d(-50%,-50%,0);pointer-events:none;z-index:2;opacity:0;transition:opacity .35s;mix-blend-mode:screen}
+.motion-glow.motion-active{opacity:1}
+.remix-break strong{transition:letter-spacing .6s ease,transform .6s ease}
+.remix-break.motion-visible strong{letter-spacing:-.055em;transform:scale(1.015)}
+.motion-page-curtain{position:fixed;inset:0;z-index:5000;pointer-events:none;background:#d4fc66;transform:translateY(101%);transition:transform .48s cubic-bezier(.7,0,.2,1)}
+.motion-page-curtain.motion-enter{transform:translateY(0)}
+@media(max-width:900px){.motion-glow{display:none}}
+@media(prefers-reduced-motion:reduce){
+ .motion-reveal,.motion-reveal.motion-slide-left,.motion-reveal.motion-slide-right{opacity:1!important;transform:none!important;transition:none!important}
+ .motion-words .motion-word-inner{opacity:1!important;transform:none!important;transition:none!important}
+ .remix-hero .wix-lavender-card{transform:rotate(1deg)!important;transition:none!important}
+ .motion-page-curtain,.motion-glow{display:none!important}
+}

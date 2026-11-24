@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+
+<html lang="tr">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>CSS ile Mobil Uyumlu Tasarım | Kevser Çetkin</title>
+<meta content="CSS Grid, Flexbox ve media query ile responsive web tasarımı; portfolyomun masaüstü ve mobil ekran görüntüleriyle anlatım." name="description"/>
+<link href="css/style.css" rel="stylesheet"/>
+<link href="css/responsive.css" rel="stylesheet"/>
+<link href="css/awwwards-remix.css" rel="stylesheet"/>
+<link href="css/motion.css" rel="stylesheet"/>
+<link href="css/impact.css" rel="stylesheet"/>
+<link href="css/backup.css" rel="stylesheet"/>
+<link href="css/studio-polish.css" rel="stylesheet"/>
+<style>.blog-learning-note{max-width:820px;margin:0 auto 30px;text-align:center}.blog-learning-note h2{font-size:clamp(22px,3vw,32px);margin:0 0 10px}.blog-learning-note p{line-height:1.7;color:#6b6475}.blog-screen-example{margin:22px 0 8px}.blog-screen-example img{display:block;width:100%;height:auto;border-radius:12px;border:1px solid #e7e3ee}.blog-screen-example figcaption{font-size:12px;color:#766f82;margin-top:8px}.blog-screen-explanation{font-size:14px;line-height:1.7;color:#575063}</style><style>.article-shell{max-width:920px;margin:50px auto 95px;padding:0 24px}.article-back{display:inline-flex;align-items:center;gap:8px;color:#7653aa;text-decoration:none;font-weight:700;margin-bottom:32px}.article-tag{letter-spacing:.18em;text-transform:uppercase;color:#8a6aad;font-size:12px;font-weight:800}.article-shell h1{font-size:clamp(32px,5vw,62px);line-height:1.12;letter-spacing:-.04em;margin:14px 0 20px}.article-lead{font-size:18px;color:#666;line-height:1.8}.article-visual{width:100%;height:auto;border-radius:20px;box-shadow:0 20px 65px #30204a18;margin:30px 0 10px}.article-caption{font-size:12px;color:#777;margin:0 0 38px}.article-shell h2{font-size:25px;margin:38px 0 15px}.article-shell p{line-height:1.95;font-size:16px;color:#4e465a}.article-shell pre{overflow:auto;background:#201a2d;color:#f5eafa;padding:20px;border-radius:12px}.article-nav{border-top:1px solid #ddd;margin-top:45px;padding-top:25px}@media(max-width:650px){.article-shell{margin-top:26px}}</style><style>
+.book-wrap{max-width:1150px;margin:30px auto 90px;padding:0 22px}.book-back{display:inline-flex;gap:8px;margin-bottom:20px;color:#8156b3;font-weight:700;text-decoration:none}.book-top{text-align:center;margin-bottom:24px}.book-top h1{font-size:clamp(28px,4.5vw,48px);letter-spacing:-.04em;margin:8px 0}.book-top p{color:#786e82;margin:0}.book-stage{perspective:2200px;position:relative;max-width:1000px;margin:auto}.book-pages{position:relative;min-height:530px;transform-style:preserve-3d;filter:drop-shadow(0 25px 25px #26143c25)}.book-spread{display:grid;grid-template-columns:1fr 1fr;position:absolute;inset:0;visibility:hidden;pointer-events:none;opacity:0;transition:opacity .3s}.book-spread.is-active{visibility:visible;opacity:1;pointer-events:auto}.book-page{background:#fffaf0;color:#302b34;padding:clamp(20px,3.5vw,48px);border:1px solid #e9ddcb;overflow:auto;min-height:530px;box-sizing:border-box;position:relative}.book-page:first-child{border-radius:13px 0 0 13px;background:linear-gradient(90deg,#eee0cd 0,#fffaf0 8%)}.book-page:last-child{border-radius:0 13px 13px 0;background:linear-gradient(90deg,#f3e8d8 0,#fffaf0 6%)}.book-page h2{font-family:Georgia,serif;font-size:clamp(22px,2.5vw,33px);margin:12px 0 20px;line-height:1.22}.book-page p{font-family:Georgia,serif;line-height:1.85;font-size:clamp(14px,1.6vw,18px);color:#504755}.book-page .chapter{color:#9766a8;font-size:11px;font-weight:800;letter-spacing:.2em;text-transform:uppercase}.book-page .number{position:absolute;bottom:14px;right:27px;color:#998b91;font-size:12px}.book-cover{background:linear-gradient(135deg,#21182e,#694382)!important;color:#fff!important;display:flex;flex-direction:column;justify-content:space-between}.book-cover h2{font-family:Georgia,serif;font-size:clamp(31px,4vw,55px);color:#fff}.book-cover p{color:#e9d9f5}.book-cover .chapter{color:#ddc0ef}.book-figure{width:100%;max-height:240px;object-fit:contain;border-radius:8px;margin:12px 0}.book-figure-caption{font-size:12px!important;color:#867887!important}.book-controls{display:flex;align-items:center;justify-content:center;gap:22px;margin-top:25px}.book-controls button{border:1px solid #cdbadf;background:#fff;color:#53326f;border-radius:50px;padding:12px 22px;font-weight:800;cursor:pointer}.book-controls button:hover:not(:disabled){background:#563572;color:white}.book-controls button:disabled{opacity:.35;cursor:not-allowed}.book-count{font-size:14px;color:#71647a;min-width:90px;text-align:center}.book-spread.turn-next{animation:bookNext .6s ease both;transform-origin:center}.book-spread.turn-prev{animation:bookPrev .6s ease both;transform-origin:center}@keyframes bookNext{0%{transform:rotateY(-13deg) scale(.985);opacity:.5}100%{transform:rotateY(0) scale(1);opacity:1}}@keyframes bookPrev{0%{transform:rotateY(13deg) scale(.985);opacity:.5}100%{transform:rotateY(0) scale(1);opacity:1}}.book-hint{text-align:center;color:#81788a;font-size:12px;margin:15px 0}.book-page:focus-visible,.book-controls button:focus-visible{outline:3px solid #ab78dc;outline-offset:2px}@media(max-width:700px){.book-spread{grid-template-columns:1fr}.book-page{min-height:520px}.book-page:first-child{border-radius:12px;background:#fffaf0}.book-page:last-child{display:none}.book-pages{min-height:520px}.book-top h1{font-size:28px}.book-controls{gap:10px}.book-controls button{padding:11px 14px}}@media(prefers-reduced-motion:reduce){.book-spread{animation:none!important;transition:none!important}}
+</style><style>.book-code{white-space:pre-wrap;overflow-wrap:anywhere;font-size:clamp(11px,1.2vw,14px);line-height:1.7;background:#292238;color:#f7eaff;padding:15px;border-radius:10px;max-height:260px;overflow:auto}.book-page p{font-size:clamp(13px,1.22vw,16px);line-height:1.72}.book-page h2{font-size:clamp(21px,2.3vw,29px)}.book-page{overflow-y:auto}.book-spread{transition:opacity .25s ease}@media(max-width:700px){.book-spread{display:block}.book-spread .book-page{display:none}.book-spread .book-page.mobile-active{display:flex;flex-direction:column;min-height:570px;border-radius:12px}.book-pages{min-height:570px}.book-page h2{font-size:25px}.book-page p{font-size:15px}.book-page .book-figure{max-height:190px}}@media(min-width:701px){.book-page.mobile-active{display:block}}</style><link href="css/digital-library-final.css" rel="stylesheet"/><link href="css/palette-polish.css" rel="stylesheet"/>
+<link href="css/premium-unified.css" rel="stylesheet"/>
+<link href="css/book-touch-flip.css" rel="stylesheet">
+<link href="css/final-quality.css" rel="stylesheet"/>
+<link href="css/book-realistic-pages.css" rel="stylesheet"><link href="css/book-code-workshop.css" rel="stylesheet"/><link href="css/book-workshop-refine.css" rel="stylesheet"/><link href="css/book-natural-motion.css" rel="stylesheet"/>
+<link href="css/skills-polish.css" rel="stylesheet"/>
+</link></link><meta content="CSS ile Mobil Uyumlu Tasarım | Kevser Çetkin" property="og:title"/><meta content="CSS Grid, Flexbox ve media query ile responsive web tasarımı; portfolyomun masaüstü ve mobil ekran görüntüleriyle anlatım." property="og:description"/><meta content="website" property="og:type"/><meta content="tr_TR" property="og:locale"/><meta content="summary" name="twitter:card"/></head>
+<body>
+<a class="skip-content" href="#main-content">Ana içeriğe geç</a>
+<!-- Site Başlığı ve Navigasyon Menüsü -->
+<header class="site-header">
+<div class="container header-inner">
+<a class="site-logo" href="index.html">
+<div class="logo-badge">KÇ</div>
+<div class="logo-text">
+<span class="logo-name">Kevser ÇETKİN</span>
+<span class="logo-tagline">Web Geliştirici &amp; Tasarımcı</span>
+</div>
+</a>
+<button aria-controls="site-main-nav" aria-expanded="false" aria-label="Menüyü Aç/Kapat" class="mobile-menu-toggle" type="button">
+        ☰
+      </button>
+<nav class="main-nav" id="site-main-nav">
+<ul class="nav-list">
+<li><a class="nav-link" href="index.html">Anasayfa</a></li>
+<li><a class="nav-link" href="hakkimda.html">Hakkımda</a></li>
+<li><a class="nav-link" href="projeler.html">Projeler</a></li>
+<li><a class="nav-link active" href="blog.html">Blog</a></li>
+<li><a class="nav-link" href="galeri.html">Galeri</a></li>
+<li><a class="nav-link" href="iletisim.html">İletişim</a></li>
+</ul>
+<div class="lang-switch">
+<a class="lang-btn active" href="blog.html">TR</a>
+<a class="lang-btn" href="blog-en.html">EN</a>
+</div>
+</nav>
+</div>
+</header>
+<!-- Sayfa Başlık Bölümü (Sadece 1 adet H1) -->
+<section class="page-header-section">
+<div class="container">
+<div class="inner-page-kicker">KEVSER ÇETKİN <span> / </span> PORTFOLYO</div>
+<div class="page-title book-section-heading">Bilişim &amp; Teknoloji Blogu</div>
+<p class="page-subtitle">Web tasarımın temelleri, modern kodlama standartları ve arayüz mimarisi üzerine teknik yazılar.</p>
+</div>
+</section>
+<!-- Ana Blog İçeriği (En Az 3 IT Makalesi Kriteri) -->
+<main class="section-padding" id="main-content" tabindex="-1"><div class="book-wrap"><a class="book-back" href="blog.html">← Bloga Dön</a><div class="book-top"><h1>CSS ile Mobil Uyumlu Tasarım</h1><p>Uzun anlatımı ve örnek çalışmaları sayfaları çevirerek oku</p></div><div class="book-stage"><div class="book-pages"><section aria-hidden="true" class="book-spread"><div class="book-page book-cover"><div><span class="chapter">KEVSER / DIGITAL JOURNAL</span><h2>CSS ile Mobil Uyumlu Tasarım</h2><p>Etkileşimli öğrenme defteri</p></div><span class="chapter">2026 · 02</span></div><div class="book-page"><span class="chapter">01 / Bölüm</span><h2>Her ekranda iyi görünüm</h2><p>Bir site masaüstünde düzenli görünürken telefonda taşabilir. Responsive tasarım, içeriklerin ekran genişliğine göre esnemesini sağlar. Amaç yalnızca öğeleri küçültmek değildir: metnin rahat okunması, butonlara kolay basılması ve görsellerin taşmaması da önemlidir. Tasarıma en dar ekrandan başlamak çoğu zaman işimizi kolaylaştırır.</p><span class="number">02</span></div></section><section aria-hidden="true" class="book-spread"><div class="book-page"><span class="chapter">02 / Bölüm</span><h2>Esnek kutular</h2><p>CSS Grid ve Flexbox, öğeleri yan yana ya da alt alta yerleştirmek için kullanılır. Grid, özellikle kart koleksiyonları ve sayfa düzenleri için güçlüdür. Flexbox ise menü, buton grubu veya tek satırlık hizalamalarda işe yarar. Her iki yöntemi de ihtiyaca göre birlikte kullanabilirsin.</p><span class="number">03</span></div><div class="book-page"><span class="chapter">03 / Bölüm</span><h2>Örnek çalışma: Kart galerisi</h2><p>Aşağıdaki CSS kodu geniş ekranda iki sütun oluşturur. Ekran daraldığında tek sütuna geçer. Kartların genişliği, kutunun içindeki metne ve kullanılabilir alana göre değişir. Bu örneği küçük bir galeri veya proje listesi hazırlamak için uyarlayabilirsin.</p><span class="number">04</span></div></section><section aria-hidden="true" class="book-spread"><div class="book-page"><span class="chapter">CODE / EXAMPLE</span><h2>Kod Örneği</h2><p>Bu küçük örneği kendi deneme dosyanda uygulayabilirsin.</p><pre class="book-code"><code>.cards {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+}
+@media (max-width: 700px) {
+  .cards { grid-template-columns: 1fr; }
+}</code></pre><span class="number">05</span></div><div class="book-page"><span class="chapter">04 / Bölüm</span><h2>Breakpoint seçimi</h2><p>Media query, belirli ekran koşullarında farklı stiller uygulamamızı sağlar. Örneğin max-width: 700px koşulu, 700 piksel ve daha dar ekranlarda devreye girer. Ancak 700 veya 768 gibi tek bir değer her site için doğru değildir. Tasarım hangi genişlikte bozuluyorsa kırılma noktası oraya göre belirlenmelidir.</p><span class="number">06</span></div></section><section aria-hidden="true" class="book-spread"><div class="book-page"><span class="chapter">VISUAL / EXAMPLE</span><h2>Görsel Örnek</h2><p>Kendi Hakkımda sayfamın masaüstü (1280 px) ve mobil (390 px) görünümleri. Ekranlar aynı HTML/CSS kaynaklarından tarayıcıda oluşturuldu.</p><img alt="Hakkımda sayfasının masaüstü ve mobil görünüm karşılaştırması" class="book-figure" src="images/blog-gercek-ekran-2.webp"/><p class="book-figure-caption">Gerçek ekran görüntüleri · Masaüstü ve mobil görünüm</p><span class="number">07</span></div><div class="book-page"><span class="chapter">05 / Bölüm</span><h2>Kutu modeli</h2><p>Bir öğenin kapladığı alan; içerik, padding, border ve margin ile ilişkilidir. box-sizing: border-box kullanıldığında width değerine padding ve border dahil edilir; bu da genişlik hesaplarını kolaylaştırır. Mobil ekranda yatay kaydırma çıkıyorsa genişliği sabit verilmiş bir öğeyi kontrol etmek iyi bir başlangıçtır.</p><span class="number">08</span></div></section><section aria-hidden="true" class="book-spread"><div class="book-page"><span class="chapter">06 / Bölüm</span><h2>Test ve iyileştirme</h2><p>Tarayıcının geliştirici araçlarıyla farklı ekran boyutlarını deneyebilirsin. Sadece önceden tanımlı telefon ölçülerine değil, aradaki genişliklere de bak. Menülerin açılması, görsellerin kesilmemesi ve yazıların rahat okunması önemlidir. Gerçek cihazda kontrol etmek ek güven sağlar.</p><span class="number">09</span></div><div class="book-page"><span class="chapter">PRACTICE / TASK</span><h2>Şimdi Sen Dene</h2><p>Küçük bir örnek sayfa oluştur, farklı ekran genişliklerinde dene ve öğrendiklerini not et.</p><span class="number">10</span></div></section><section aria-hidden="true" class="book-spread"><div class="book-page book-cover"><div><span class="chapter">THE END</span><h2>Okuduğun için teşekkürler</h2><p>Diğer yazılar için bloga dönebilirsin.</p></div><a href="blog.html" style="color:white">← Bloga Dön</a></div><div class="book-page book-cover"><div><span class="chapter">KEVSER / DIGITAL JOURNAL</span><h2>✦</h2></div></div></section></div></div><div class="book-controls"><button id="book-prev" type="button">← Önceki</button><span aria-live="polite" class="book-count" id="book-count"></span><button id="book-next" type="button">Sonraki →</button></div><p class="book-hint">Sayfaya dokunarak, ok tuşlarıyla veya telefonda kaydırarak çevirebilirsin</p></div></main>
+<!-- Alt Bilgi (Footer) -->
+<footer class="site-footer">
+<div class="container">
+<div class="footer-grid">
+<div>
+<h3 class="footer-title">Kevser ÇETKİN</h3>
+<p class="footer-desc">
+            Akdeniz Üniversitesi Teknik Bilimler MYO - Web Tasarımının Temelleri Dersi Vize Projesi.
+          </p>
+</div>
+<div>
+<h3 class="footer-title">Hızlı Bağlantılar</h3>
+<ul class="footer-links">
+<li><a href="index.html">Anasayfa</a></li>
+<li><a href="hakkimda.html">Hakkımda</a></li>
+<li><a href="projeler.html">Projeler</a></li>
+<li><a href="blog.html">Blog</a></li>
+<li><a href="galeri.html">Galeri</a></li>
+<li><a href="iletisim.html">İletişim</a></li>
+</ul>
+</div>
+<div>
+<h3 class="footer-title">İletişim</h3>
+<ul class="footer-links">
+<li>Antalya, Türkiye</li>
+</ul>
+</div>
+</div>
+<div class="footer-bottom">
+<p>© 2026 Kevser ÇETKİN. Tüm Hakları Saklıdır.</p>
+</div>
+</div>
+</footer>
+<script src="js/store.js"></script>
+<script src="js/main.js"></script>
+<script src="js/immersive.js"></script>
+<script src="js/motion.js"></script>
+<script src="js/impact.js"></script>
+<script src="js/studio-polish.js"></script>
+<script src="js/book-touch-flip.js"></script>
+<script src="js/book-code-workshop.js"></script><script src="js/book-natural-motion.js"></script></body>
+</html>

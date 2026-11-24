@@ -1,0 +1,58 @@
+/* KEVSER — final quality pass: preserve layout and content; reduce visual noise. */
+:root { color-scheme: dark; }
+/* Keep the globe visually dominant, not the surrounding decorative ornaments. */
+.premium-stage .k3d-grid { opacity: .075; }
+.premium-stage .k3d-orbit { opacity: .44; border-color: rgba(216,169,245,.11); }
+.premium-stage .k3d-orbit-b { opacity: .16; }
+.premium-stage .k3d-halo { opacity: .7; }
+.premium-stage .premium-stage-glow { opacity: .55; }
+.premium-stage .k3d-legend span, .premium-stage-number { display: none; }
+.premium-stage .k3d-controls button { background: rgba(28,21,38,.88); }
+.premium-stage .k3d-controls button:focus-visible { outline-offset: 3px; }
+/* Match floating utility controls to the plum/lavender palette. */
+.ks-top { background: #2b2137; color: #e3c6f2; border-color: rgba(218,197,255,.42); }
+.ks-top:hover { background: #49345b; }
+/* Give text and cards a reliable minimum size, without changing the design. */
+.premium-intro, .premium-stage, .premium-person-copy { min-width: 0; }
+.premium-title { max-width: 100%; overflow-wrap: break-word; }
+.site-header .logo-text { min-width: 0; }
+img { max-width: 100%; }
+/* Avoid a trapped vertical scroll gesture on touchscreens. Horizontal dragging still rotates the globe. */
+@media (pointer:coarse) {
+  .premium-stage .k3d-sculpture canvas { touch-action: pan-y; }
+  .premium-stage .k3d-controls button { min-width: 40px; min-height: 40px; }
+}
+@media (max-width: 920px) {
+  .site-header .main-nav.active { max-height: calc(100dvh - 76px); overflow-y: auto; overscroll-behavior: contain; }
+  .premium-stage { max-width: 100%; }
+}
+@media (max-width: 600px) {
+  .premium-hero-grid { grid-template-columns: minmax(0, 1fr); }
+  .premium-title { letter-spacing: -.045em !important; }
+  .premium-stage .k3d-art { min-height: 315px; height: clamp(315px, 87vw, 440px); }
+  .premium-stage .k3d-legend { max-width: 55%; line-height: 1.5; }
+  .premium-stage .k3d-caption { left: 10px; right: 10px; line-height: 1.45; }
+  .premium-person-mark { display: none; }
+  .premium-stage-bottom { gap: 12px; }
+  .premium-stage-bottom button { min-height: 44px; }
+}
+@media (max-width: 360px) {
+  .premium-title { font-size: clamp(1.35rem, 7vw, 1.8rem) !important; }
+  .premium-stage .k3d-art { min-height: 300px; height: 310px; }
+  .premium-cta-row { flex-direction: column; }
+  .premium-cta { width: 100%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .premium-stage .k3d-orbit, .premium-stage .k3d-halo { animation: none !important; }
+  .home-reveal, .motion-reveal, .fwa-reveal { opacity: 1 !important; transform: none !important; }
+}
+
+/* Contact form anti-spam field is hidden from human visitors. */
+.netlify-honeypot {position:absolute!important;left:-9999px!important;width:1px!important;height:1px!important;overflow:hidden!important;}
+/* Message acknowledgement pages */
+.confirmation-shell {max-width:740px;margin:clamp(65px,10vw,130px) auto;padding:0 22px;text-align:center;}
+.confirmation-panel {border:1px solid rgba(194,167,218,.4);background:linear-gradient(135deg,#2a2036,#211927);border-radius:24px;padding:clamp(30px,6vw,60px);box-shadow:0 25px 60px rgba(0,0,0,.12);}
+.confirmation-panel h1 {color:#f8f0ff;font-size:clamp(28px,4vw,48px);margin:10px 0 15px;}
+.confirmation-panel h2 {color:#dbc3f0;font-size:clamp(18px,2.3vw,24px);margin:22px 0 10px;}
+.confirmation-panel p {color:#e2d6e9;line-height:1.8;}
+.confirmation-panel .btn {margin-top:24px;display:inline-flex;}

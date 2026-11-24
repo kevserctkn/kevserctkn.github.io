@@ -1,0 +1,25 @@
+
+/* Cinematic project opening, isolated from site layout */
+.kc-opening{position:fixed;inset:0;z-index:99999;background:#080e20;display:grid;place-items:center;overflow:hidden;color:#fff;isolation:isolate}
+.kc-opening[hidden]{display:none!important}
+.kc-opening__art{position:absolute;inset:-5%;background-image:linear-gradient(90deg,rgba(3,9,24,.30),transparent 65%),url('../images/project-opening-art.jpg');background-position:center 55%;background-size:cover;transform:scale(1.09);animation:kcOpeningZoom 4.2s cubic-bezier(.18,.7,.3,1) both;filter:brightness(.65) saturate(.9)}
+.kc-opening__art:after{content:'';position:absolute;inset:0;background:radial-gradient(circle at 70% 50%,rgba(255,113,39,.15),transparent 40%),linear-gradient(0deg,rgba(3,7,19,.9),transparent 44%)}
+.kc-opening__scan{position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(0deg,transparent 0 7px,rgba(255,255,255,.035) 8px);opacity:.25;animation:kcScan 2.5s linear infinite}
+.kc-opening__lines{position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,transparent 49.85%,rgba(126,214,255,.5) 50%,transparent 50.15%),linear-gradient(0deg,transparent 49.8%,rgba(255,157,79,.45) 50%,transparent 50.2%);background-size:33% 100%,100% 28%;opacity:0;animation:kcLines 1.6s .7s ease-out both}
+.kc-opening__content{position:absolute;left:clamp(24px,7vw,105px);bottom:clamp(55px,10vh,115px);z-index:2;max-width:min(85vw,680px);text-shadow:0 3px 30px #050b20}
+.kc-opening__kicker{display:block;letter-spacing:.34em;font-size:clamp(10px,1.2vw,13px);font-weight:700;color:#f4b784;opacity:0;animation:kcReveal .65s .45s both}
+.kc-opening__title{font-size:clamp(34px,6vw,82px);line-height:1.04;letter-spacing:-.05em;font-weight:800;margin:16px 0 13px;opacity:0;animation:kcReveal .85s 1.15s both}
+.kc-opening__subtitle{font-size:clamp(13px,1.7vw,18px);color:#e7e8f3;opacity:0;animation:kcReveal .8s 1.9s both}
+.kc-opening__progress{margin-top:24px;width:min(340px,65vw);height:2px;background:rgba(255,255,255,.25);overflow:hidden}
+.kc-opening__progress:before{content:'';display:block;height:100%;width:100%;background:linear-gradient(90deg,#67c6ff,#ff9b53);transform:scaleX(0);transform-origin:left;animation:kcProgress 3.7s linear both}
+.kc-opening__skip{position:absolute;right:clamp(18px,4vw,65px);bottom:clamp(22px,5vh,50px);z-index:4;border:1px solid rgba(255,255,255,.6);border-radius:30px;background:rgba(7,13,28,.6);color:white;padding:11px 20px;cursor:pointer;font:600 13px system-ui,sans-serif;letter-spacing:.04em;backdrop-filter:blur(8px)}
+.kc-opening__skip:hover,.kc-opening__skip:focus-visible{background:#fff;color:#11182d}
+.kc-opening.is-closing{animation:kcClose .55s ease-in forwards;pointer-events:none}
+@keyframes kcOpeningZoom{from{transform:scale(1.12);filter:brightness(.24) saturate(.5)}30%{filter:brightness(.75) saturate(1)}to{transform:scale(1.01);filter:brightness(.86) saturate(1.1)}}
+@keyframes kcReveal{from{opacity:0;filter:blur(12px)}to{opacity:1;filter:blur(0)}}
+@keyframes kcLines{from{opacity:0;transform:scale(1.1)}to{opacity:.25;transform:scale(1)}}
+@keyframes kcScan{to{transform:translateY(16px)}}
+@keyframes kcProgress{to{transform:scaleX(1)}}
+@keyframes kcClose{to{opacity:0;filter:blur(8px)}}
+@media(max-width:650px){.kc-opening__art{background-position:52% center}.kc-opening__content{bottom:100px}.kc-opening__title{font-size:clamp(32px,9vw,52px)}.kc-opening__skip{bottom:25px}}
+@media(prefers-reduced-motion:reduce){.kc-opening *{animation:none!important}.kc-opening__art{transform:none;filter:brightness(.8)}.kc-opening__content>*{opacity:1}}

@@ -1,0 +1,245 @@
+/* ===================================================================
+   WEB TASARIMININ TEMELLERİ - RESPONSIVE TASARIM (RWD)
+   responsive.css - WIX "İş CV'si (Modern)" Şablonu Uyumlu
+   Masaüstü, Tablet (<= 768px) ve Cep Telefonu (<= 480px) Medya Sorguları
+   =================================================================== */
+
+/* Tablet ve Orta Ölçekli Cihazlar (Maksimum 992px) */
+@media screen and (max-width: 992px) {
+  .wix-hero-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .wix-lavender-card {
+    max-width: 520px;
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  .wix-intro-content {
+    text-align: center;
+    align-items: center;
+  }
+
+  .wix-btn-group {
+    justify-content: center;
+  }
+
+  .about-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .contact-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .footer-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* Tablet Görünümü (Maksimum 768px - Breakpoint: 768px) */
+@media screen and (max-width: 920px) {
+  .header-inner {
+    position: relative;
+  }
+
+  .mobile-menu-toggle {
+    display: block;
+  }
+
+  .main-nav {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: var(--bg-page);
+    border-top: 1px solid var(--border-main);
+    border-bottom: 2px solid var(--wix-lime);
+    box-shadow: 0 20px 45px rgba(24, 22, 57, 0.18);
+    flex-direction: column;
+    padding: 1.2rem;
+    border-radius: 0 0 16px 16px;
+    display: none;
+    z-index: 999;
+  }
+
+  .main-nav.active {
+    display: flex;
+  }
+
+  .nav-list {
+    flex-direction: column;
+    width: 100%;
+    gap: 6px;
+  }
+
+  .nav-link {
+    width: 100%;
+    padding: 10px 14px;
+    text-align: center;
+  }
+
+  .lang-switch {
+    margin-left: 0;
+    padding-left: 0;
+    border-left: none;
+    border-top: 1px solid var(--border-main);
+    padding-top: 12px;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .wix-giant-hello {
+    font-size: 3.8rem;
+  }
+
+  .wix-photo-img {
+    height: 320px;
+  }
+
+  .wix-headline {
+    font-size: 1.8rem;
+  }
+
+  .two-col-lists {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .footer-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .page-title {
+    font-size: 1.85rem;
+  }
+}
+
+/* Cep Telefonu Görünümü (Maksimum 480px - Breakpoint: 480px) */
+@media screen and (max-width: 480px) {
+  .container {
+    width: 94%;
+    padding: 0 10px;
+  }
+
+  .hero-banner {
+    padding: 2.5rem 0;
+  }
+
+  .wix-lavender-card {
+    padding: 28px 20px;
+    border-radius: 20px;
+  }
+
+  .wix-giant-hello {
+    font-size: 3rem;
+    margin-bottom: 16px;
+  }
+
+  .wix-photo-img {
+    height: 260px;
+  }
+
+  .wix-headline {
+    font-size: 1.5rem;
+  }
+
+  .wix-description {
+    font-size: 0.98rem;
+  }
+
+  .wix-btn-group {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .btn-wix-lime,
+  .btn-wix-white,
+  .btn-wix-outline {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .about-content-box {
+    padding: 1.4rem;
+  }
+
+  .section-padding {
+    padding: 3rem 0;
+  }
+
+  .section-title, .section-header h2 {
+    font-size: 1.5rem;
+  }
+
+  .projects-grid,
+  .blog-grid,
+  .gallery-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .custom-table th,
+  .custom-table td {
+    padding: 8px 10px;
+    font-size: 0.82rem;
+  }
+
+  .contact-info-card,
+  .contact-form-card {
+    padding: 1.4rem;
+  }
+}
+
+/* Mobil menü görünürlüğünü ve tıklanabilirliğini güçlendirir. */
+@media screen and (max-width: 920px) {
+  .site-header .header-inner { position: relative; }
+  .site-header .mobile-menu-toggle { position: relative; z-index: 1002; pointer-events: auto; }
+  .site-header .main-nav { z-index: 1001; }
+  .site-header .main-nav.active { display: flex; visibility: visible; }
+}
+
+/* Mobil menü: açıldığında sayfa içeriğinin ÜSTÜNDE görünür. */
+@media screen and (max-width: 920px) {
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 2000;
+    overflow: visible;
+  }
+  .site-header .header-inner { position: relative; }
+  .site-header .mobile-menu-toggle {
+    position: relative;
+    z-index: 2002;
+    flex-shrink: 0;
+    touch-action: manipulation;
+  }
+  .site-header .main-nav {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    z-index: 2001;
+    background-color: var(--bg-page);
+    border: 1px solid #e2e8f0;
+    border-top: 3px solid var(--wix-lavender);
+    border-radius: 0 0 16px 16px;
+    box-shadow: 0 20px 45px rgba(24, 22, 57, .18);
+    display: none;
+  }
+  .site-header .main-nav.active { display: flex; }
+  .site-header .nav-link { display: block; }
+}
+
+/* Mobil Hakkimda: profil karti ekranda yapisik kalmasin */
+@media screen and (max-width: 920px) {
+  .about-grid > .profile-card,
+  .profile-card {
+    position: static !important;
+    top: auto !important;
+    transform: none !important;
+    align-self: auto !important;
+  }
+}

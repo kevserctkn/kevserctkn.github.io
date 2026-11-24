@@ -1,0 +1,38 @@
+
+/* Homepage cinematic refresh — scoped to the two home pages */
+.home-refresh .remix-hero{position:relative;isolation:isolate;overflow:hidden}
+.home-refresh .remix-hero::before{content:"";position:absolute;z-index:-1;width:48vw;height:48vw;max-width:650px;max-height:650px;right:-13%;top:-28%;border-radius:50%;background:radial-gradient(circle,rgba(180,117,255,.25),transparent 68%);filter:blur(18px);pointer-events:none;animation:homeAura 11s ease-in-out infinite alternate}
+.home-refresh .wix-lavender-card{transition:transform .55s cubic-bezier(.2,.7,.2,1),box-shadow .55s;box-shadow:0 26px 65px rgba(24,12,48,.16)}
+.home-refresh .wix-lavender-card:hover{transform:translateY(-9px) rotate(-.8deg);box-shadow:0 35px 85px rgba(24,12,48,.24)}
+.home-refresh .wix-photo-img{transition:transform .8s cubic-bezier(.2,.7,.2,1)}
+.home-refresh .wix-photo-card:hover .wix-photo-img{transform:scale(1.045)}
+.home-refresh .wix-headline{animation:homeEnter .85s both;letter-spacing:-.045em}
+.home-refresh .wix-description{animation:homeEnter .85s .16s both}
+.home-refresh .wix-btn-group{animation:homeEnter .85s .3s both}
+.home-refresh .home-highlight{color:#bfff7c;font-style:normal;text-shadow:0 0 34px rgba(183,255,122,.22)}
+.home-refresh .home-showcase{background:#100d1d;color:#f8f6ff;padding:clamp(65px,9vw,118px) 0;position:relative;overflow:hidden}
+.home-refresh .home-showcase::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 88% 20%,rgba(151,84,214,.18),transparent 40%);pointer-events:none}
+.home-refresh .home-showcase-inner{position:relative}
+.home-refresh .home-showcase-top{display:flex;align-items:end;justify-content:space-between;gap:20px;margin-bottom:32px}
+.home-refresh .home-showcase-eyebrow{font-size:.75rem;letter-spacing:.23em;text-transform:uppercase;color:#c3f38f;font-weight:800}
+.home-refresh .home-showcase h2{color:#fff;font-size:clamp(2.1rem,5vw,4.4rem);line-height:1.06;letter-spacing:-.045em;margin:12px 0}
+.home-refresh .home-showcase-top p{color:#c9c2d8;max-width:430px;line-height:1.7}
+.home-refresh .home-showcase-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+.home-refresh .home-album{position:relative;min-height:330px;overflow:hidden;border-radius:22px;display:block;text-decoration:none;background:#33264b;isolation:isolate;border:1px solid rgba(255,255,255,.14)}
+.home-refresh .home-album img{width:100%;height:100%;position:absolute;inset:0;object-fit:cover;transition:transform .75s cubic-bezier(.2,.7,.2,1);filter:saturate(.9)}
+.home-refresh .home-album::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 20%,rgba(10,7,19,.87) 100%);z-index:1}
+.home-refresh .home-album:hover img,.home-refresh .home-album:focus-visible img{transform:scale(1.09)}
+.home-refresh .home-album-content{position:absolute;bottom:0;left:0;right:0;z-index:2;padding:26px;color:white}
+.home-refresh .home-album-number{font-size:.75rem;letter-spacing:.17em;color:#c4ff8a}
+.home-refresh .home-album-title{font-size:clamp(1.3rem,2vw,1.85rem);font-weight:800;display:block;margin-top:8px;line-height:1.2}
+.home-refresh .home-album-desc{font-size:.88rem;color:#e0d9e8;display:block;margin-top:7px}
+.home-refresh .home-album-arrow{position:absolute;right:24px;top:22px;z-index:2;border-radius:50%;width:39px;height:39px;display:grid;place-items:center;background:rgba(255,255,255,.18);color:#fff;backdrop-filter:blur(8px)}
+.home-refresh .home-showcase-cta{display:inline-flex;margin-top:28px;padding:13px 22px;border-radius:99px;background:#c4fa86;color:#171322;font-weight:800;text-decoration:none;transition:transform .2s}
+.home-refresh .home-showcase-cta:hover{transform:translateY(-3px)}
+.home-refresh .home-reveal{opacity:0;transform:translateY(28px);transition:opacity .75s ease,transform .75s ease}
+.home-refresh .home-reveal.is-visible{opacity:1;transform:none}
+@keyframes homeAura{to{transform:translate(-70px,70px) scale(1.2)}}
+@keyframes homeEnter{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:none}}
+@media(max-width:850px){.home-refresh .home-showcase-grid{grid-template-columns:1fr 1fr}.home-refresh .home-showcase-top{display:block}.home-refresh .home-album{min-height:290px}}
+@media(max-width:560px){.home-refresh .home-showcase-grid{grid-template-columns:1fr}.home-refresh .home-album{min-height:320px}.home-refresh .home-showcase h2{font-size:2.45rem}}
+@media(prefers-reduced-motion:reduce){.home-refresh .home-reveal{opacity:1;transform:none}.home-refresh .wix-headline,.home-refresh .wix-description,.home-refresh .wix-btn-group,.home-refresh .remix-hero::before{animation:none}.home-refresh .home-album img,.home-refresh .wix-lavender-card{transition:none}}

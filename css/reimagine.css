@@ -1,0 +1,54 @@
+/* REIMAGINE — new editorial layout. Palette stays connected to the admin CSS variables. */
+:root{--re-ink:var(--text-black);--re-paper:var(--bg-page);--re-accent:var(--wix-lime);--re-soft:var(--wix-lavender)}
+body{background:var(--re-paper);overflow-x:clip}
+.site-header{background:var(--re-ink)!important;border:0!important;color:var(--re-paper)!important;backdrop-filter:none!important}
+.site-header .logo-name,.site-header .logo-role-tag,.site-header .nav-link{color:var(--re-paper)!important}
+.site-header .logo-badge{background:var(--re-accent)!important;color:var(--re-ink)!important;transform:none!important;border-radius:50%!important}
+.site-header .nav-link.active{background:var(--re-accent)!important;color:var(--re-ink)!important;box-shadow:none!important}
+.site-header .lang-btn:not(.active){color:var(--re-paper)!important;border-color:rgba(255,255,255,.4)!important}
+.site-header .mobile-menu-toggle{color:var(--re-ink)!important;background:var(--re-paper)!important}
+.site-header .header-inner{min-height:82px}
+.hero-banner{background:var(--re-ink)!important;color:var(--re-paper)!important;padding:clamp(65px,8vw,135px) 0 28px!important;min-height:calc(100vh - 82px);border:0!important}
+.hero-banner:before{content:'PORTFOLIO'!important;position:absolute!important;left:50%!important;top:30%!important;width:auto!important;height:auto!important;transform:translate(-50%,-50%)!important;border:0!important;border-radius:0!important;font-size:clamp(8rem,23vw,27rem)!important;font-weight:950!important;letter-spacing:-.12em!important;color:rgba(255,255,255,.035)!important;z-index:-1!important;white-space:nowrap!important}
+.hero-banner:after{right:3%!important;top:5%!important;color:var(--re-accent)!important;opacity:.5!important}
+.wix-hero-grid{display:grid!important;grid-template-columns:minmax(0,1.12fr) minmax(320px,.88fr)!important;gap:clamp(32px,6vw,100px)!important;align-items:center!important}
+.wix-intro-content{grid-column:1!important;grid-row:1!important;align-items:flex-start!important;gap:25px!important}
+.wix-lavender-card{grid-column:2!important;grid-row:1!important;background:transparent!important;border:0!important;border-radius:0!important;padding:0!important;box-shadow:none!important;max-width:unset!important;transform:rotate(3deg);animation:re-enter-right 1.2s cubic-bezier(.2,.7,.2,1) both}
+.wix-lavender-card::before{content:''!important;width:85%!important;height:90%!important;right:-18px!important;top:26px!important;bottom:auto!important;border:2px solid var(--re-accent)!important;border-radius:220px 220px 22px 22px!important;opacity:1!important}
+.portrait-topline{color:var(--re-paper)!important;letter-spacing:.22em!important;margin-bottom:20px!important}
+.wix-giant-hello{display:none!important}
+.wix-photo-card{border:0!important;border-radius:220px 220px 22px 22px!important;overflow:hidden!important;transform:none!important;box-shadow:0 20px 90px rgba(0,0,0,.3)!important;background:var(--re-soft)!important}
+.wix-photo-img{height:clamp(360px,39vw,570px)!important;width:100%!important;object-fit:cover!important;object-position:center top!important;filter:saturate(.94)!important}
+.wix-social-badge{background:var(--re-accent)!important;color:var(--re-ink)!important;bottom:18px!important;left:18px!important;border-radius:30px!important}
+.wix-card-footer{display:flex!important;justify-content:space-between!important;align-items:center!important;gap:15px!important;border-bottom:1px solid rgba(255,255,255,.3)!important;padding:18px 0!important;margin-top:15px!important}
+.wix-card-name{color:var(--re-paper)!important;font-size:clamp(1.3rem,2vw,2rem)!important}
+.wix-card-role{color:rgba(255,255,255,.7)!important;font-size:.75rem!important;text-align:right!important}
+.hero-eyebrow{border:0!important;border-radius:0!important;padding:0!important;background:transparent!important;color:var(--re-accent)!important;font-size:.75rem!important;letter-spacing:.2em!important}
+.hero-status-dot{background:var(--re-accent)!important}
+.wix-headline{color:var(--re-paper)!important;font-size:clamp(3.7rem,7.4vw,8.5rem)!important;line-height:.94!important;letter-spacing:-.095em!important;max-width:880px!important;font-weight:950!important;animation:re-enter-left 1s ease both}
+.wix-headline em{color:var(--re-accent)!important;font-style:normal!important}
+.wix-description{color:rgba(255,255,255,.74)!important;font-size:clamp(1rem,1.2vw,1.2rem)!important;max-width:620px!important;line-height:1.8!important}
+.hero-capabilities span{color:var(--re-paper)!important;background:transparent!important;border:1px solid rgba(255,255,255,.3)!important;border-radius:3px!important}
+.wix-btn-group{display:flex!important;flex-wrap:wrap!important}
+.hero-banner .btn-wix-lime{background:var(--re-accent)!important;color:var(--re-ink)!important;border-radius:2px!important;box-shadow:none!important}
+.hero-banner .btn-wix-white,.hero-banner .btn-wix-outline{color:var(--re-paper)!important;background:transparent!important;border:1px solid rgba(255,255,255,.55)!important;border-radius:2px!important;box-shadow:none!important}
+.hero-banner .btn-wix-lime:hover,.hero-banner .btn-wix-white:hover,.hero-banner .btn-wix-outline:hover{transform:translateY(-5px)!important}
+.hero-endnote{color:var(--re-paper)!important;margin-top:65px!important}
+.hero-endnote a{color:var(--re-accent)!important}
+.hero-endnote-line{background:rgba(255,255,255,.35)!important}
+.expertise-rail{background:var(--re-accent)!important;color:var(--re-ink)!important;transform:none!important}
+.expertise-rail-inner{min-height:90px!important}
+.expertise-rail-inner b,.expertise-rail .rail-spark{color:var(--re-ink)!important}
+.section-padding{position:relative}
+.section-header h2,.page-title{font-size:clamp(2.7rem,5.4vw,6.5rem)!important;letter-spacing:-.08em!important;line-height:1.03!important}
+.section-header:after{background:var(--re-ink)!important;height:3px!important;width:100%!important;opacity:.18}
+.project-card,.blog-card,.gallery-card,.profile-card{border-radius:3px!important;box-shadow:none!important;transition:transform .5s ease,box-shadow .5s ease!important}
+.project-card:hover,.blog-card:hover,.gallery-card:hover{transform:translateY(-12px)!important;box-shadow:12px 12px 0 var(--re-soft)!important}
+.page-header-section{background:var(--re-ink)!important;color:var(--re-paper)!important}
+.page-header-section h1,.page-header-section p{color:var(--re-paper)!important}
+@keyframes re-enter-left{from{opacity:0;transform:translateY(45px)}to{opacity:1;transform:translateY(0)}}
+@keyframes re-enter-right{from{opacity:0;transform:translate(40px,25px) rotate(6deg)}to{opacity:1;transform:translate(0,0) rotate(3deg)}}
+@media(max-width:1050px){.wix-hero-grid{grid-template-columns:minmax(0,1fr) minmax(260px,.85fr)!important;gap:35px!important}.wix-headline{font-size:clamp(3.4rem,6.5vw,6rem)!important}}
+@media(max-width:768px){.site-header .main-nav{background:var(--re-ink)!important;color:var(--re-paper)!important;z-index:9999!important}.site-header .main-nav .nav-link{color:var(--re-paper)!important}.site-header .main-nav .nav-link.active{color:var(--re-ink)!important}.hero-banner{padding:45px 0 28px!important}.wix-hero-grid{display:flex!important;flex-direction:column!important;gap:35px!important}.wix-intro-content{order:1!important;width:100%!important}.wix-lavender-card{order:2!important;width:min(100%,470px)!important;transform:none!important}.wix-headline{font-size:clamp(3.4rem,13vw,6rem)!important}.wix-photo-img{height:440px!important}.hero-endnote{margin-top:38px!important}.expertise-rail-inner{flex-wrap:wrap!important;padding:20px 0!important;gap:12px!important}.expertise-rail-inner>span:not(.rail-spark){font-size:.66rem!important}.section-header h2{font-size:clamp(2.4rem,10vw,4rem)!important}}
+@media(max-width:420px){.wix-headline{font-size:clamp(3rem,12.5vw,4rem)!important}.wix-photo-img{height:355px!important}.wix-card-footer{flex-direction:column!important;align-items:flex-start!important}.wix-card-role{text-align:left!important}.hero-capabilities{gap:6px!important}.hero-capabilities span{font-size:.65rem!important;padding:7px 9px!important}}
+@media(prefers-reduced-motion:reduce){.wix-headline,.wix-lavender-card{animation:none!important}}

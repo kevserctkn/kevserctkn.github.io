@@ -1,0 +1,772 @@
+
+/* Independent immersive gallery: original palette is inherited */
+body.ks-open{overflow:hidden!important}
+#ks-gallery[hidden],#ks-zoom[hidden]{display:none!important}
+#ks-gallery{position:fixed;inset:0;z-index:95000;display:flex;flex-direction:column;overflow:hidden;background:var(--bg,#f5f0f5);background:linear-gradient(125deg,#f8f1f4 0%,#eae3f4 54%,#f6e8e2 100%);color:#40344a;isolation:isolate}
+#ks-gallery:before{content:'';position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse at 15% 15%,#ffffffa8,transparent 55%)}
+.ks-top{position:relative;z-index:3;display:flex;justify-content:space-between;align-items:start;gap:20px;padding:clamp(20px,3vw,42px) clamp(20px,5vw,78px)}
+.ks-kicker{font:600 11px/1.6 system-ui;letter-spacing:.23em;opacity:.62;text-transform:uppercase}
+.ks-heading{margin:6px 0 0;font:500 clamp(28px,4.8vw,70px)/1.05 Georgia,serif;letter-spacing:-.035em}
+.ks-close,.ks-zoom-close{background:#ffffffbd;color:#46384e;border:1px solid #a99bb1;border-radius:100px;width:50px;height:50px;display:grid;place-items:center;font:300 33px/1 system-ui;cursor:pointer;flex-shrink:0;box-shadow:0 6px 25px #64536a15}
+.ks-close:hover,.ks-zoom-close:hover{background:#46384e;color:white}
+.ks-stage{position:relative;flex:1;min-height:0;display:flex;align-items:center;overflow:hidden}
+.ks-rail{width:100%;height:100%;display:flex;align-items:center;gap:clamp(18px,3vw,58px);overflow-x:auto;overflow-y:hidden;padding:25px 10vw 35px;scrollbar-width:none;overscroll-behavior-inline:contain;touch-action:pan-x;box-sizing:border-box}
+.ks-rail::-webkit-scrollbar{display:none}
+.ks-card{position:relative;flex:0 0 auto;width:clamp(205px,29vw,440px);height:clamp(270px,58vh,580px);padding:0;border:0;background:#fff;box-shadow:0 20px 60px #594b6340;cursor:zoom-in;overflow:hidden;opacity:0;transform:translateY(85px) rotate(2deg) scale(.9);transition:opacity .75s ease,transform .9s cubic-bezier(.17,.8,.2,1),box-shadow .4s ease;transition-delay:calc(min(var(--i),9) * 90ms)}
+.ks-gallery-enter .ks-card{opacity:1;transform:translateY(0) rotate(0) scale(1)}
+.ks-card:nth-child(4n+2){height:clamp(240px,47vh,470px);align-self:center}.ks-card:nth-child(4n+3){height:clamp(260px,54vh,535px)}
+.ks-card:hover{transition-delay:0ms;transform:translateY(-12px) scale(1.025);box-shadow:0 27px 75px #594b6350}
+.ks-card img{display:block;width:100%;height:100%;object-fit:cover}.ks-card span{position:absolute;left:0;right:0;bottom:0;padding:25px 18px 14px;color:white;text-align:left;font:500 14px system-ui;background:linear-gradient(transparent,#0009)}
+.ks-bottom{position:relative;z-index:3;display:flex;align-items:center;gap:18px;justify-content:space-between;padding:14px clamp(20px,5vw,78px) 25px;font:500 12px system-ui;letter-spacing:.04em}
+.ks-nav{display:flex;align-items:center;gap:10px}.ks-nav button{border:1px solid #a99bb1;border-radius:50%;width:43px;height:43px;background:#fff9;color:#46384e;font:26px system-ui;cursor:pointer}
+.ks-progress{flex:1;max-width:220px;height:2px;background:#b4a5bb70}.ks-progress>i{display:block;height:100%;background:#80628d;transition:width .2s}
+#ks-zoom{position:fixed;inset:0;z-index:96000;background:#17121bea;display:grid;place-items:center;padding:70px 75px;box-sizing:border-box}
+#ks-zoom img{max-width:100%;max-height:100%;object-fit:contain;box-shadow:0 25px 80px #0008}
+.ks-zoom-close{position:absolute;top:20px;right:22px}.ks-zoom-nav{position:absolute;top:50%;border:0;background:#ffffff33;color:white;border-radius:50%;width:46px;height:46px;font:32px system-ui;cursor:pointer}.ks-zoom-prev{left:14px}.ks-zoom-next{right:14px}.ks-zoom-caption{position:absolute;bottom:18px;left:20px;right:20px;color:white;text-align:center;font:13px system-ui}
+@media(max-width:650px){.ks-rail{padding:20px 9vw;gap:17px}.ks-card{width:78vw!important;height:55vh!important}.ks-bottom{flex-wrap:wrap}.ks-progress{max-width:90px}#ks-zoom{padding:75px 12px}.ks-zoom-nav{top:auto;bottom:14px}.ks-zoom-caption{bottom:70px}}
+@media(prefers-reduced-motion:reduce){.ks-card{transition:none!important;opacity:1!important;transform:none!important}}
+
+/* Cinematic moving 35mm film reel — album only. Intro untouched. */
+#ks-gallery .ks-stage{perspective:1200px}
+#ks-gallery .ks-stage:before,#ks-gallery .ks-stage:after{content:"";position:absolute;top:0;bottom:0;width:11%;z-index:2;pointer-events:none}
+#ks-gallery .ks-stage:before{left:0;background:linear-gradient(90deg,#f4eaf1,transparent)}
+#ks-gallery .ks-stage:after{right:0;background:linear-gradient(270deg,#f4eaf1,transparent)}
+#ks-gallery .ks-rail{gap:0!important;align-items:center!important;padding:35px 10vw!important;scroll-behavior:auto;filter:drop-shadow(0 20px 20px #38263c45)}
+#ks-gallery .ks-card,#ks-gallery .ks-card:nth-child(4n+2),#ks-gallery .ks-card:nth-child(4n+3){flex:0 0 clamp(230px,32vw,425px)!important;width:clamp(230px,32vw,425px)!important;height:clamp(240px,53vh,455px)!important;align-self:center!important;border:0!important;border-radius:0!important;box-shadow:none!important;box-sizing:border-box!important;background:#211a22!important;padding:34px 7px!important;overflow:visible!important;opacity:0;transform:translateY(90px) rotateY(-12deg) scale(.9);transition:opacity .65s ease,transform 1.05s cubic-bezier(.16,.85,.2,1),filter .3s ease!important;transition-delay:calc(min(var(--i),8) * 85ms)!important;isolation:isolate}
+#ks-gallery.ks-gallery-enter .ks-card{opacity:1!important;transform:translateY(0) rotateY(0) scale(1)!important}
+#ks-gallery .ks-card:before,#ks-gallery .ks-card:after{content:"";position:absolute;left:0;right:0;height:25px;background-color:#211a22;background-image:repeating-linear-gradient(90deg,transparent 0 10px,#f5eaf2 10px 24px,transparent 24px 37px);background-size:37px 12px;background-repeat:repeat-x;background-position:0 center;z-index:2;pointer-events:none}
+#ks-gallery .ks-card:before{top:0}#ks-gallery .ks-card:after{bottom:0}
+#ks-gallery .ks-card img{width:100%!important;height:100%!important;object-fit:cover!important;border:0!important;box-shadow:inset 0 0 18px #0005;filter:saturate(.85) contrast(1.08);transition:filter .35s ease}
+#ks-gallery .ks-card:hover{filter:brightness(1.12);z-index:1;transition-delay:0ms!important}
+#ks-gallery .ks-card:hover img{filter:saturate(1.05) contrast(1.03)}
+#ks-gallery .ks-card span{bottom:34px!important;padding:26px 12px 10px!important;font-size:12px!important;pointer-events:none}
+#ks-gallery .ks-stage{animation:ks-reel-arrival 1.2s ease both}
+@keyframes ks-reel-arrival{from{filter:blur(7px);opacity:.5}to{filter:blur(0);opacity:1}}
+@media(max-width:650px){#ks-gallery .ks-card,#ks-gallery .ks-card:nth-child(4n+2),#ks-gallery .ks-card:nth-child(4n+3){flex-basis:76vw!important;width:76vw!important;height:48vh!important;padding:29px 6px!important}#ks-gallery .ks-rail{padding:15px 9vw!important}#ks-gallery .ks-card:before,#ks-gallery .ks-card:after{height:22px}}
+@media(prefers-reduced-motion:reduce){#ks-gallery .ks-stage{animation:none!important}#ks-gallery .ks-card{transition:none!important;transform:none!important;opacity:1!important}}
+
+/* Continuous reel motion: keep each frame aligned and prevent pointer-hover from freezing playback. */
+#ks-gallery .ks-rail{scroll-snap-type:none!important;scroll-behavior:auto!important;will-change:scroll-position}
+#ks-gallery .ks-card{transition-delay:0ms!important}
+#ks-gallery .ks-card:hover{transform:translateY(0) rotateY(0) scale(1)!important}
+#ks-gallery .ks-stage:after{pointer-events:none}
+
+/* POLAROID ALBUM OVERRIDE — keeps cinema intro untouched */
+#ks-gallery{background:linear-gradient(#0003,#0003),repeating-linear-gradient(7deg,#8a583a 0px,#b47b50 3px,#76462e 7px,#b98a5c 12px)!important;color:#fff8e9!important}
+#ks-gallery .ks-top{background:#24170e77;backdrop-filter:blur(5px)}
+#ks-gallery .ks-stage{display:block!important;overflow-y:auto!important;overflow-x:hidden!important;perspective:none!important;animation:none!important}
+#ks-gallery .ks-stage:before,#ks-gallery .ks-stage:after{display:none!important}
+#ks-gallery .ks-rail{height:auto!important;min-height:100%!important;width:min(1160px,100%)!important;margin:auto!important;display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:clamp(10px,1.7vw,23px)!important;padding:32px clamp(16px,3vw,36px) 70px!important;overflow:visible!important;filter:none!important;align-items:start!important}
+#ks-gallery .ks-card,#ks-gallery .ks-card:nth-child(4n+2),#ks-gallery .ks-card:nth-child(4n+3){display:flex!important;flex-direction:column!important;width:100%!important;height:auto!important;aspect-ratio: .84!important;background:#f7f4ed!important;padding:9px 9px 38px!important;border:1px solid #ddd5c8!important;border-radius:1px!important;box-shadow:2px 8px 12px #1d0f0b77!important;opacity:0;transform:translateY(38px) rotate(var(--tilt)) scale(.96)!important;transition:opacity .6s ease,transform .7s ease,box-shadow .3s ease!important;transition-delay:calc(min(var(--i),12)*65ms)!important;overflow:visible!important;position:relative!important}
+#ks-gallery.ks-gallery-enter .ks-card{opacity:1!important;transform:translateY(0) rotate(var(--tilt)) scale(1)!important}
+#ks-gallery .ks-card:nth-child(4n+1){--tilt:-4deg}#ks-gallery .ks-card:nth-child(4n+2){--tilt:2deg}#ks-gallery .ks-card:nth-child(4n+3){--tilt:-2deg}#ks-gallery .ks-card:nth-child(4n){--tilt:4deg}
+#ks-gallery .ks-card:before,#ks-gallery .ks-card:after{display:none!important}
+#ks-gallery .ks-card img{width:100%!important;height:100%!important;min-height:0!important;flex:1!important;object-fit:cover!important;filter:none!important;background:#332a31!important}
+#ks-gallery .ks-card span{position:absolute!important;bottom:8px!important;left:8px!important;right:8px!important;background:none!important;color:#675b55!important;text-align:center!important;padding:0!important;font:12px/1.3 Georgia,serif!important;overflow:hidden!important;white-space:nowrap!important;text-overflow:ellipsis!important}
+#ks-gallery .ks-card:hover{z-index:5!important;transform:translateY(-12px) rotate(0deg) scale(1.055)!important;box-shadow:0 18px 30px #1d0f0baa!important}
+#ks-gallery .ks-bottom{background:#24170e99;color:#fff8e9}
+#ks-gallery .ks-progress,#ks-gallery .ks-nav{display:none!important}
+@media(max-width:850px){#ks-gallery .ks-rail{grid-template-columns:repeat(3,minmax(0,1fr))!important}}
+@media(max-width:550px){#ks-gallery .ks-rail{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:14px!important;padding:24px 16px 55px!important}#ks-gallery .ks-card{padding:7px 7px 30px!important}#ks-gallery .ks-top{padding:17px!important}}
+@media(prefers-reduced-motion:reduce){#ks-gallery .ks-card{opacity:1!important;transform:none!important}}
+
+/* Black background for opened Polaroid albums only */
+#ks-gallery{background:#050505!important;color:#fff!important}
+#ks-gallery .ks-top{background:rgba(10,10,10,.88)!important}
+#ks-gallery .ks-bottom{background:rgba(10,10,10,.88)!important;color:#fff!important}
+
+/* Polaroid album palette matched to existing site: plum, lavender, warm paper */
+#ks-gallery{background:radial-gradient(ellipse at 12% 18%,rgba(199,180,225,.14),transparent 46%),radial-gradient(ellipse at 86% 82%,rgba(205,169,179,.10),transparent 44%),#1c1924!important;color:#f8f5fa!important}
+#ks-gallery .ks-top{background:rgba(28,25,36,.88)!important;border-bottom:1px solid rgba(216,203,232,.16)!important}
+#ks-gallery .ks-bottom{background:rgba(28,25,36,.92)!important;color:#d8cbe8!important;border-top:1px solid rgba(216,203,232,.14)!important}
+#ks-gallery .ks-card,#ks-gallery .ks-card:nth-child(4n+2),#ks-gallery .ks-card:nth-child(4n+3){background:#f5f1ef!important;border-color:#e6dfe9!important;box-shadow:2px 9px 22px rgba(8,6,13,.42)!important}
+#ks-gallery .ks-card:hover{box-shadow:0 20px 38px rgba(8,6,13,.56)!important}
+#ks-gallery .ks-card span{color:#6c6274!important}
+#ks-gallery .ks-close{background:#d8cbe8!important;color:#28212e!important;border-color:#cbbfd3!important}
+#ks-gallery .ks-close:hover{background:#c7b4e1!important}
+
+/* Album-specific monochrome clapperboard opening; original gallery intro unchanged. */
+#ks-album-intro[hidden]{display:none!important}#ks-album-intro{position:fixed;inset:0;z-index:100005;background:#050505;color:#fff;display:grid;place-items:center;overflow:hidden;isolation:isolate}#ks-album-intro .ks-intro-picture{position:absolute;inset:0;background:#050505 url('../images/album-klaket-intro.png') center center / contain no-repeat;filter:contrast(1.08);transform:scale(1.035);opacity:0}#ks-album-intro.ks-intro-play .ks-intro-picture{animation:ks-intro-film 2.45s ease-out forwards}#ks-album-intro .ks-intro-flash{position:absolute;inset:0;background:#fff;opacity:0;pointer-events:none}#ks-album-intro.ks-intro-play .ks-intro-flash{animation:ks-intro-flash 2.45s steps(1,end) both}#ks-album-intro .ks-intro-foot{position:absolute;bottom:clamp(26px,5vh,70px);left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;width:min(300px,72vw);text-align:center;font:500 12px/1.4 system-ui,sans-serif;letter-spacing:.17em;text-transform:uppercase;text-shadow:0 2px 8px #000;background:rgba(0,0,0,.45);padding:10px 16px;border-radius:12px}#ks-album-intro .ks-intro-title{font-size:14px;font-weight:750}#ks-album-intro .ks-intro-status{font-size:10px;opacity:.8}#ks-album-intro .ks-intro-meter{width:100%;height:2px;background:#ffffff55;overflow:hidden}#ks-album-intro .ks-intro-meter i{display:block;height:100%;width:0;background:#fff}#ks-album-intro.ks-intro-play .ks-intro-meter i{animation:ks-intro-progress 2.35s linear forwards}#ks-album-intro .ks-intro-skip{position:absolute;right:24px;top:24px;color:white;background:#151515cc;border:1px solid #ffffff55;border-radius:30px;padding:10px 18px;cursor:pointer;z-index:2}#ks-album-intro.ks-intro-leave{animation:ks-intro-out .39s ease-in forwards}@keyframes ks-intro-film{0%{opacity:0;transform:scale(1.05);filter:blur(8px) grayscale(1)}20%{opacity:1;filter:blur(0) grayscale(1)}100%{opacity:1;transform:scale(1);filter:blur(0) grayscale(1)}}@keyframes ks-intro-flash{0%,63%,69%,100%{opacity:0}64%,67%{opacity:.9}}@keyframes ks-intro-progress{to{width:100%}}@keyframes ks-intro-out{to{opacity:0}}@media(max-width:650px){#ks-album-intro .ks-intro-picture{background-size:cover;background-position:44% center}#ks-album-intro .ks-intro-foot{bottom:32px}}@media(prefers-reduced-motion:reduce){#ks-album-intro .ks-intro-picture{opacity:1!important;animation:none!important}#ks-album-intro .ks-intro-flash{animation:none!important}}
+
+/* Dynamic album name printed directly on the blank slate.
+   Coordinates relative to the 1672x941 contain-scaled intro artwork. */
+#ks-album-intro .ks-clapper-title{position:absolute;z-index:1;left:47.6%;top:47%;transform:translate(-50%,-50%) rotate(-2deg);width:18%;max-width:310px;min-width:0;color:#f6f4f0;text-align:center;font:italic 700 clamp(12px,2.05vw,32px)/1.15 Georgia,serif;letter-spacing:.015em;text-shadow:0 1px 2px #000;pointer-events:none;opacity:0;overflow-wrap:break-word;}
+#ks-album-intro.ks-intro-play .ks-clapper-title{animation:ks-clapper-name 2.45s ease both}
+@keyframes ks-clapper-name{0%,17%{opacity:0}24%,89%{opacity:1}100%{opacity:1}}
+@media(max-aspect-ratio:1672/941){#ks-album-intro .ks-clapper-title{left:47.6%;top:47%;width:18%;font-size:clamp(9px,2.05vw,32px)}}
+@media(max-width:650px){#ks-album-intro .ks-clapper-title{left:47%;top:47%;width:38%;font-size:clamp(13px,4vw,24px);background:#08080899;border-radius:4px;padding:3px}}
+@media(prefers-reduced-motion:reduce){#ks-album-intro .ks-clapper-title{opacity:1!important;animation:none!important}}
+
+@media(max-width:650px){#ks-album-intro .ks-intro-picture{background-size:contain!important;background-position:center center!important}#ks-album-intro .ks-clapper-title{left:47.6%;top:47%;width:24%;font-size:clamp(10px,2.6vw,17px);background:transparent;padding:0}}
+
+
+/* Vintage projection room - album view only */
+#ks-gallery.ks-cinema-gallery{background:radial-gradient(ellipse at 65% 28%,#30251e 0%,#15121a 48%,#09090d 100%)!important;color:#f3e8d5!important}
+#ks-gallery.ks-cinema-gallery .ks-stage{display:flex!important;flex-direction:column!important;gap:0!important;overflow:visible!important;padding:0 clamp(12px,3vw,50px)!important;max-height:none!important}
+#ks-gallery.ks-cinema-gallery .ks-cinema-room{position:relative;isolation:isolate;width:100%;min-height:clamp(320px,50vh,600px);display:flex;align-items:center;justify-content:flex-end;padding:16px 3% 35px 18%;overflow:hidden;border-radius:16px;background:radial-gradient(ellipse at 77% 50%,#4d392a 0%,#1b1619 55%,#090a0e 100%);box-shadow:inset 0 0 90px #000b,0 15px 35px #0006}
+#ks-gallery .ks-cinema-room:before{content:'';position:absolute;inset:0;pointer-events:none;z-index:3;opacity:.13;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 150 150' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E")}
+#ks-gallery .ks-cinema-projector{position:absolute;left:1.5%;bottom:17%;width:clamp(90px,14vw,210px);height:clamp(95px,16vw,230px);z-index:2;filter:drop-shadow(5px 14px 12px #000)}
+#ks-gallery .ks-cinema-reel{position:absolute;top:0;width:47%;aspect-ratio:1;border:8px solid #866d50;border-radius:50%;background:repeating-conic-gradient(from 12deg,#29231f 0deg 36deg,#a48a65 38deg 44deg,#29231f 46deg 72deg);box-shadow:inset 0 0 0 13px #17191b,0 0 5px #c7a77955;animation:ks-reel-spin 12s linear infinite}
+#ks-gallery .ks-cinema-reel.a{left:0}#ks-gallery .ks-cinema-reel.b{right:6%;top:10%}
+#ks-gallery .ks-cinema-body{position:absolute;left:15%;right:5%;top:42%;bottom:0;border-radius:14px 22px 12px 12px;background:linear-gradient(140deg,#51483c,#15191d 50%,#050709);border:3px solid #6b5944}
+#ks-gallery .ks-cinema-lens{position:absolute;right:-13%;top:58%;width:32%;height:19%;border-radius:25%;background:linear-gradient(90deg,#151515,#73624a 48%,#fff0bb);box-shadow:0 0 18px #f7bd70}
+#ks-gallery .ks-cinema-beam{position:absolute;z-index:0;left:13%;top:18%;width:73%;height:68%;background:linear-gradient(90deg,#ffc37d55,#f9cd8a1f 58%,#ffe6b014);clip-path:polygon(0 50%,100% 0,100% 100%);filter:blur(13px);pointer-events:none;animation:ks-beam-flicker 3s infinite}
+#ks-gallery .ks-cinema-screen{position:relative;z-index:1;width:min(78%,980px);height:clamp(260px,43vh,530px);padding:16px;border:7px solid #302b2a;border-radius:10px;background:#d7c1a0;box-shadow:0 0 35px #ffca8440,0 0 80px #f6bd7630,inset 0 0 18px #0008;display:flex;align-items:center;justify-content:center}
+#ks-gallery .ks-cinema-screen-inner{position:relative;width:100%;height:100%;overflow:hidden;background:#201a18;box-shadow:inset 0 0 30px #000}
+#ks-gallery .ks-cinema-main{width:100%;height:100%;object-fit:contain;display:block;cursor:zoom-in;filter:sepia(.12) contrast(1.03)}
+#ks-gallery .ks-cinema-main.ks-cinema-reveal{animation:ks-projection-in .65s ease-out both}
+#ks-gallery .ks-cinema-grain{position:absolute;inset:0;pointer-events:none;box-shadow:inset 0 0 55px #0008;border:1px solid #ffffff22}
+#ks-gallery .ks-cinema-arrow,#ks-gallery .ks-cinema-expand{position:absolute;z-index:5;border:1px solid #f8e4c680;background:#130e0d99;color:#fff2dd;border-radius:50%;width:45px;height:45px;font-size:31px;cursor:pointer;display:grid;place-items:center}
+#ks-gallery .ks-cinema-left{left:20px}#ks-gallery .ks-cinema-right{right:20px}#ks-gallery .ks-cinema-expand{top:18px;right:18px;font-size:23px;width:37px;height:37px}
+#ks-gallery .ks-cinema-count{position:absolute;bottom:9px;left:50%;transform:translateX(-50%);font:14px Georgia,serif;letter-spacing:4px;color:#e6c89d}
+#ks-gallery.ks-cinema-gallery .ks-rail{display:flex!important;position:relative!important;overflow-x:auto!important;overflow-y:hidden!important;flex-wrap:nowrap!important;gap:12px!important;align-items:center!important;justify-content:flex-start!important;max-height:none!important;min-height:125px!important;width:100%!important;padding:20px 10px 16px!important;background:#0b0b10!important;scroll-snap-type:x proximity}
+#ks-gallery.ks-cinema-gallery .ks-card{flex:0 0 clamp(105px,12vw,165px)!important;width:clamp(105px,12vw,165px)!important;height:clamp(105px,11vw,145px)!important;min-height:0!important;aspect-ratio:auto!important;padding:6px 6px 22px!important;margin:0!important;transform:none!important;animation:none!important;opacity:1!important;background:#f4ecdf!important;box-shadow:0 4px 14px #000a!important;scroll-snap-align:center;border:2px solid transparent!important;border-radius:2px!important}
+#ks-gallery.ks-cinema-gallery .ks-card.ks-cinema-selected{border-color:#f7c77d!important;box-shadow:0 0 0 2px #e9b46a,0 0 22px #d19a5677!important}
+#ks-gallery.ks-cinema-gallery .ks-card img{width:100%!important;height:calc(100% - 8px)!important;object-fit:cover!important;max-height:none!important;position:static!important;transform:none!important}
+#ks-gallery.ks-cinema-gallery .ks-card span{font-size:10px!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important;color:#312a2a!important}
+#ks-gallery.ks-cinema-gallery .ks-bottom{padding-top:8px!important}
+@keyframes ks-reel-spin{to{transform:rotate(360deg)}}@keyframes ks-beam-flicker{0%,100%{opacity:.7}42%{opacity:.85}43%{opacity:.64}80%{opacity:.9}}@keyframes ks-projection-in{0%{opacity:.25;filter:blur(8px) sepia(.5);transform:scale(1.02)}100%{opacity:1;filter:sepia(.12) contrast(1.03);transform:scale(1)}}
+@media(max-width:700px){#ks-gallery.ks-cinema-gallery .ks-cinema-room{min-height:340px;padding:15px 8px 30px 8px;align-items:flex-start}#ks-gallery .ks-cinema-projector{left:2%;bottom:3%;width:76px;height:88px;opacity:.85}#ks-gallery .ks-cinema-screen{width:100%;height:280px;padding:8px;border-width:4px}#ks-gallery .ks-cinema-beam{left:0;top:45%;width:100%;height:45%}#ks-gallery .ks-cinema-arrow{width:32px;height:32px;font-size:23px}#ks-gallery .ks-cinema-left{left:8px}#ks-gallery .ks-cinema-right{right:8px}#ks-gallery.ks-cinema-gallery .ks-card{flex-basis:110px!important;width:110px!important;height:112px!important}}
+@media(prefers-reduced-motion:reduce){#ks-gallery .ks-cinema-reel,#ks-gallery .ks-cinema-beam,#ks-gallery .ks-cinema-main{animation:none!important}}
+
+/* Violet cinema art direction: reference-inspired layout, original photos stay interactive */
+#ks-gallery.ks-cinema-gallery{background:radial-gradient(ellipse at 68% 20%,#30203c 0%,#150e1d 57%,#08060d 100%)!important;color:#f5e5fa!important}
+#ks-gallery.ks-cinema-gallery .ks-top{background:#120d1a!important;border-bottom:1px solid #8f5c9c55!important}
+#ks-gallery.ks-cinema-gallery .ks-heading{color:#e8b8f3!important}
+#ks-gallery.ks-cinema-gallery .ks-stage{padding:0 clamp(8px,1.5vw,26px)!important}
+#ks-gallery.ks-cinema-gallery .ks-cinema-room{height:min(61vh,640px);min-height:420px;padding:28px 3% 35px 22%;background:radial-gradient(ellipse at 75% 38%,#51335e 0%,#26152f 40%,#0c0913 83%);border:1px solid #9f69ac44;box-shadow:inset 0 0 100px #000b,0 14px 40px #0008}
+#ks-gallery.ks-cinema-gallery .ks-cinema-room:after{content:'';position:absolute;inset:0;z-index:0;pointer-events:none;background:repeating-linear-gradient(90deg,transparent 0 56px,#9a63b309 58px 60px,transparent 62px 95px),radial-gradient(ellipse at 65% 45%,transparent 20%,#08040b88 95%)}
+#ks-gallery .ks-cinema-projector{width:clamp(145px,19vw,300px);height:clamp(190px,26vw,355px);left:-1.5%;bottom:7%;z-index:2;filter:drop-shadow(4px 18px 15px #000)}
+#ks-gallery .ks-cinema-reel{border-color:#a675b2;background:repeating-conic-gradient(from 12deg,#1a1423 0deg 36deg,#aa79b5 38deg 44deg,#24192c 46deg 72deg);box-shadow:inset 0 0 0 13px #15101a,0 0 12px #cf8bdf66}
+#ks-gallery .ks-cinema-body{background:linear-gradient(145deg,#80588d,#23152d 49%,#07070a);border-color:#9c69a5}
+#ks-gallery .ks-cinema-lens{background:linear-gradient(90deg,#151018,#b67ac5 50%,#ffdcff);box-shadow:0 0 24px #eea4ff,0 0 42px #ce72e9}
+#ks-gallery .ks-cinema-beam{left:12%;top:12%;width:76%;height:75%;background:linear-gradient(90deg,#e7a0ff77,#c76be533 55%,#f4caff10);filter:blur(13px)}
+#ks-gallery .ks-cinema-screen{width:min(84%,1050px);height:clamp(310px,48vh,565px);border:11px solid #3a2544;border-radius:24px;padding:24px 37px;background:linear-gradient(135deg,#c18ec9,#825b93 54%,#e0addd);box-shadow:0 0 38px #d58ce477,0 0 95px #bc69db33,inset 0 0 18px #0008}
+#ks-gallery .ks-cinema-screen:before,#ks-gallery .ks-cinema-screen:after{content:'';position:absolute;top:12%;bottom:12%;width:18px;z-index:2;pointer-events:none;background:repeating-linear-gradient(to bottom,#3d2647 0 17px,#d6b0da 17px 32px,#3d2647 32px 44px);border-radius:3px;opacity:.8}
+#ks-gallery .ks-cinema-screen:before{left:7px}#ks-gallery .ks-cinema-screen:after{right:7px}
+#ks-gallery .ks-cinema-screen-inner{border-radius:8px;background:#140e1b}
+#ks-gallery .ks-cinema-main{filter:contrast(1.04) saturate(.96)}
+#ks-gallery .ks-cinema-arrow,#ks-gallery .ks-cinema-expand{color:#f6d5ff;background:#29142dd9;border:1px solid #d9a0ed99;box-shadow:0 0 13px #b768cb44}
+#ks-gallery .ks-cinema-count{color:#ecc5f3;font-size:16px}
+#ks-gallery.ks-cinema-gallery .ks-rail{min-height:135px!important;max-width:1100px!important;margin:0 auto!important;padding:17px 15px 22px!important;gap:13px!important;background:repeating-linear-gradient(to bottom,#160e20 0 10px,#b17ac7 10px 15px,#160e20 15px 115px,#b17ac7 115px 120px,#160e20 120px 130px)!important;border:1px solid #b97aca77!important;box-shadow:0 0 22px #b36bca33!important}
+#ks-gallery.ks-cinema-gallery .ks-card{background:#21132a!important;border:2px solid #9866a9!important;border-radius:7px!important;padding:4px!important;height:104px!important;flex-basis:145px!important;width:145px!important;box-shadow:0 4px 14px #0009!important}
+#ks-gallery.ks-cinema-gallery .ks-card.ks-cinema-selected{border-color:#f3b8ff!important;box-shadow:0 0 0 2px #e7a4f5,0 0 22px #d579f5!important}
+#ks-gallery.ks-cinema-gallery .ks-card img{height:100%!important;border-radius:4px!important}
+#ks-gallery.ks-cinema-gallery .ks-card span{display:none!important}
+#ks-gallery.ks-cinema-gallery .ks-bottom{padding:9px 18px!important}
+#ks-gallery.ks-cinema-gallery .ks-hint{color:#d6b5de!important}
+#ks-gallery.ks-cinema-gallery .ks-cinema-title{position:absolute;z-index:5;top:15px;left:23%;color:#e9b5f4;font-family:'Brush Script MT','Segoe Script',cursive;font-size:clamp(22px,2.5vw,39px);font-style:italic;text-shadow:0 3px 10px #000;pointer-events:none}
+@media(max-width:700px){#ks-gallery.ks-cinema-gallery .ks-cinema-room{min-height:370px;height:54vh;padding:65px 7px 25px}#ks-gallery .ks-cinema-projector{left:-2%;bottom:1%;width:83px;height:118px;opacity:.8}#ks-gallery .ks-cinema-screen{width:100%;height:260px;padding:12px 20px;border-width:6px;border-radius:14px}#ks-gallery .ks-cinema-screen:before,#ks-gallery .ks-cinema-screen:after{width:9px}#ks-gallery .ks-cinema-screen:before{left:3px}#ks-gallery .ks-cinema-screen:after{right:3px}#ks-gallery.ks-cinema-gallery .ks-cinema-title{left:14px;top:13px;font-size:25px}#ks-gallery.ks-cinema-gallery .ks-card{width:105px!important;flex-basis:105px!important;height:91px!important}#ks-gallery.ks-cinema-gallery .ks-rail{min-height:110px!important}}
+
+
+/* Photographic cinema environment: the supplied visual is the art-direction reference.
+   The projector, curtains, light and room are an actual scene image, not CSS polygons. */
+#ks-gallery.ks-cinema-gallery{background:#0d0713!important}
+#ks-gallery.ks-cinema-gallery .ks-stage{padding:0!important;gap:0!important}
+#ks-gallery.ks-cinema-gallery .ks-cinema-room{
+ width:min(100%,1660px)!important;height:auto!important;min-height:0!important;
+ aspect-ratio:1672/941!important;margin:0 auto!important;padding:0!important;
+ display:block!important;border:0!important;border-radius:0!important;
+ background:#100918 url('../images/cinema-purple-realistic.webp') center/100% 100% no-repeat!important;
+ box-shadow:none!important;overflow:hidden!important;
+}
+#ks-gallery.ks-cinema-gallery .ks-cinema-room:after,
+#ks-gallery.ks-cinema-gallery .ks-cinema-room:before,
+#ks-gallery.ks-cinema-gallery .ks-cinema-projector,
+#ks-gallery.ks-cinema-gallery .ks-cinema-beam{display:none!important}
+#ks-gallery.ks-cinema-gallery .ks-cinema-screen{
+ position:absolute!important;left:45.2%!important;top:19.4%!important;
+ width:39.9%!important;height:44.2%!important;
+ padding:0!important;border:0!important;border-radius:4px!important;
+ background:#100918!important;box-shadow:none!important;overflow:hidden!important;
+ z-index:2!important;
+}
+#ks-gallery.ks-cinema-gallery .ks-cinema-screen:before,
+#ks-gallery.ks-cinema-gallery .ks-cinema-screen:after{display:none!important}
+#ks-gallery.ks-cinema-gallery .ks-cinema-screen-inner{
+ width:100%!important;height:100%!important;border-radius:3px!important;
+ background:#120b18!important;overflow:hidden!important;position:relative!important;
+}
+#ks-gallery.ks-cinema-gallery .ks-cinema-backdrop{
+ position:absolute;inset:-9%;width:118%;height:118%;object-fit:cover;
+ filter:blur(20px) brightness(.52) saturate(.9);opacity:.9;pointer-events:none;
+}
+#ks-gallery.ks-cinema-gallery .ks-cinema-main{
+ position:relative!important;z-index:1!important;width:100%!important;height:100%!important;
+ object-fit:contain!important;filter:none!important;cursor:zoom-in;
+}
+#ks-gallery.ks-cinema-gallery .ks-cinema-grain{z-index:2;box-shadow:inset 0 0 20px #17091b55!important}
+#ks-gallery.ks-cinema-gallery .ks-cinema-title{
+ left:23%!important;top:6.8%!important;max-width:48%!important;
+ font-family:'Segoe Script','Brush Script MT',cursive!important;
+ font-size:clamp(16px,2.65vw,41px)!important;line-height:1.25!important;
+ color:#f5c8fa!important;text-shadow:0 2px 7px #000,0 0 14px #f5b1fc77!important;
+}
+#ks-gallery.ks-cinema-gallery .ks-cinema-count{
+ left:63.5%!important;bottom:25.4%!important;transform:translateX(-50%)!important;
+ font-size:clamp(10px,1.2vw,18px)!important;letter-spacing:2px!important;
+ color:#f8d5f7!important;z-index:5!important;
+}
+#ks-gallery.ks-cinema-gallery .ks-cinema-arrow{width:clamp(26px,3.2vw,50px)!important;height:clamp(26px,3.2vw,50px)!important;font-size:clamp(20px,2.7vw,34px)!important}
+#ks-gallery.ks-cinema-gallery .ks-cinema-left{left:0!important;top:42%!important;transform:translateY(-50%)}
+#ks-gallery.ks-cinema-gallery .ks-cinema-right{right:0!important;top:42%!important;transform:translateY(-50%)}
+#ks-gallery.ks-cinema-gallery .ks-cinema-expand{right:8px!important;top:8px!important}
+#ks-gallery.ks-cinema-gallery .ks-rail{
+ position:absolute!important;z-index:6!important;left:33.3%!important;bottom:10.6%!important;
+ width:58.8%!important;max-width:none!important;height:13.5%!important;min-height:0!important;
+ margin:0!important;padding:5px 7px!important;gap:8px!important;
+ background:#160b20dd!important;border:1px solid #d289dc77!important;
+ box-shadow:0 0 20px #d45cea66!important;scrollbar-width:thin;scrollbar-color:#d49be0 #1b1021;
+}
+#ks-gallery.ks-cinema-gallery .ks-card{
+ flex:0 0 clamp(55px,8.2vw,140px)!important;width:clamp(55px,8.2vw,140px)!important;
+ height:100%!important;min-height:0!important;padding:3px!important;
+ border-radius:5px!important;box-sizing:border-box!important;
+}
+#ks-gallery.ks-cinema-gallery .ks-card img{width:100%!important;height:100%!important;object-fit:cover!important}
+#ks-gallery.ks-cinema-gallery .ks-bottom{padding:5px 15px!important}
+@media(max-width:700px){
+ #ks-gallery.ks-cinema-gallery .ks-cinema-room{width:100%!important;min-height:0!important;height:auto!important;aspect-ratio:1672/941!important}
+ #ks-gallery.ks-cinema-gallery .ks-cinema-title{font-size:clamp(10px,3vw,20px)!important;top:6%!important}
+ #ks-gallery.ks-cinema-gallery .ks-cinema-screen{left:45.2%!important;top:19.4%!important;width:39.9%!important;height:44.2%!important}
+ #ks-gallery.ks-cinema-gallery .ks-rail{min-height:0!important;height:14%!important;padding:2px!important;gap:3px!important}
+ #ks-gallery.ks-cinema-gallery .ks-card{flex:0 0 18%!important;width:18%!important;padding:1px!important}
+ #ks-gallery.ks-cinema-gallery .ks-cinema-arrow{width:24px!important;height:24px!important;font-size:18px!important}
+ #ks-gallery.ks-cinema-gallery .ks-cinema-expand{width:23px!important;height:23px!important;font-size:15px!important}
+}
+
+/* Live cinema projection — decorative effects never block gallery controls */
+#ks-gallery.ks-cinema-gallery .ks-live-light,#ks-gallery.ks-cinema-gallery .ks-live-dust{position:absolute;inset:0;pointer-events:none;z-index:3;overflow:hidden}
+#ks-gallery.ks-cinema-gallery .ks-live-light{z-index:1;mix-blend-mode:screen}
+#ks-gallery.ks-cinema-gallery .ks-live-beam{position:absolute;left:12.4%;top:44%;width:39%;height:23%;transform-origin:0 50%;clip-path:polygon(0 42%,100% 0,100% 100%,0 58%);background:linear-gradient(90deg,rgba(250,180,255,.37),rgba(223,118,255,.17) 45%,rgba(246,183,255,.03));filter:blur(9px);animation:ks-beam-breathe 3.3s ease-in-out infinite alternate}
+#ks-gallery.ks-cinema-gallery .ks-live-core{position:absolute;left:12%;top:49%;width:38%;height:10%;clip-path:polygon(0 37%,100% 0,100% 100%,0 63%);background:linear-gradient(90deg,#f4baff70,#e4a1fa16 75%,transparent);filter:blur(12px);animation:ks-beam-breathe 2.1s ease-in-out infinite alternate-reverse}
+#ks-gallery.ks-cinema-gallery .ks-live-flare{position:absolute;left:11%;top:48%;width:4.5%;aspect-ratio:1;border-radius:50%;background:#ffe3ffb0;box-shadow:0 0 18px 8px #f9b5ffb0,0 0 42px 15px #ce69e699;filter:blur(5px);animation:ks-lens-pulse 2.7s ease-in-out infinite alternate}
+#ks-gallery.ks-cinema-gallery .ks-live-dust{z-index:4}
+#ks-gallery.ks-cinema-gallery .ks-live-dust i{position:absolute;left:var(--dx);top:var(--dy);width:var(--sz);height:var(--sz);border-radius:50%;background:#ffdbff;box-shadow:0 0 5px 1px #f6c3ff99;opacity:0;animation:ks-dust-float var(--dur) linear var(--delay) infinite}
+#ks-gallery.ks-cinema-gallery .ks-live-reel{position:absolute;z-index:2;pointer-events:none;left:2.3%;top:3.4%;width:11.8%;aspect-ratio:1;border-radius:50%;border:2px solid #dba2e744;background:repeating-conic-gradient(from 10deg,transparent 0deg 47deg,#dfa3f422 49deg 53deg,transparent 55deg 72deg);mix-blend-mode:screen;animation:ks-reel-spin 12s linear infinite}
+#ks-gallery.ks-cinema-gallery .ks-cinema-screen-inner:after{content:'';position:absolute;inset:0;z-index:3;pointer-events:none;background:linear-gradient(110deg,transparent 24%,#f9c5ff0a 49%,transparent 68%);animation:ks-screen-shimmer 5s ease-in-out infinite}
+#ks-gallery.ks-cinema-gallery.ks-light-change .ks-cinema-screen-inner:after{animation:ks-photo-flash .55s ease-out 1}
+@keyframes ks-beam-breathe{0%{opacity:.4;transform:scaleY(.93)}100%{opacity:.88;transform:scaleY(1.08)}}
+@keyframes ks-lens-pulse{from{opacity:.65;transform:scale(.9)}to{opacity:1;transform:scale(1.18)}}
+@keyframes ks-reel-spin{to{transform:rotate(360deg)}}
+@keyframes ks-dust-float{0%{opacity:0;transform:translate(-12px,14px)}20%{opacity:.75}75%{opacity:.45}100%{opacity:0;transform:translate(65px,-30px)}}
+@keyframes ks-screen-shimmer{0%,100%{opacity:.2}50%{opacity:.65}}
+@keyframes ks-photo-flash{0%{background:#ffeaff88}100%{background:transparent}}
+@media(prefers-reduced-motion:reduce){#ks-gallery .ks-live-light *,#ks-gallery .ks-live-dust *,#ks-gallery .ks-live-reel,#ks-gallery .ks-cinema-screen-inner:after{animation:none!important}}
+
+/* Soft, vintage cinema projection corners: no changes to images or controls */
+#ks-gallery.ks-cinema-gallery .ks-cinema-screen{border-radius:clamp(12px,1.9vw,32px)!important;overflow:hidden!important;box-shadow:inset 0 0 18px rgba(235,146,255,.28),0 0 9px rgba(233,149,255,.12)!important;}
+#ks-gallery.ks-cinema-gallery .ks-cinema-screen-inner{border-radius:inherit!important;overflow:hidden!important;isolation:isolate;}
+#ks-gallery.ks-cinema-gallery .ks-cinema-backdrop,#ks-gallery.ks-cinema-gallery .ks-cinema-main{border-radius:inherit!important;}
+#ks-gallery.ks-cinema-gallery .ks-cinema-screen-inner:before{content:''!important;display:block!important;position:absolute;inset:0;z-index:2;pointer-events:none;border-radius:inherit;box-shadow:inset 0 0 0 2px rgba(245,180,239,.28),inset 0 0 16px 5px rgba(24,8,29,.4),inset 0 0 38px 9px rgba(34,9,34,.24);background:radial-gradient(ellipse at center,transparent 67%,rgba(22,6,27,.19) 100%);}
+#ks-gallery.ks-cinema-gallery .ks-cinema-screen-inner:after{border-radius:inherit!important;}
+@media(max-width:700px){#ks-gallery.ks-cinema-gallery .ks-cinema-screen{border-radius:12px!important;}}
+
+/* Small personalized cinema captions, plus reference-like floating title */
+#ks-gallery.ks-cinema-gallery .ks-cinema-note{position:absolute;z-index:8;bottom:38px;left:50%;transform:translateX(-50%);max-width:min(68%,370px);min-width:125px;display:flex;align-items:center;justify-content:center;gap:9px;padding:7px 18px 8px;background:linear-gradient(100deg,#f7dcb9,#f4cda7 55%,#e8b993);color:#41213e;font:italic 600 clamp(12px,1.18vw,17px)/1.25 'Segoe Print','Segoe Script',cursive;white-space:nowrap;box-shadow:0 3px 11px #10051988,0 0 18px #eab6dc55;clip-path:polygon(0 9%,3% 0,97% 0,100% 10%,100% 92%,97% 100%,3% 100%,0 91%);pointer-events:none}
+#ks-gallery.ks-cinema-gallery .ks-note-text{overflow:hidden;text-overflow:ellipsis}
+#ks-gallery.ks-cinema-gallery .ks-note-symbol{font:22px Georgia,serif;color:#9b4d83;flex-shrink:0}
+#ks-gallery.ks-cinema-gallery .ks-cinema-title{top:9px!important;left:23%!important;right:auto!important;max-width:65%;font-family:'Segoe Script','Brush Script MT',cursive!important;font-style:italic!important;font-weight:500!important;font-size:clamp(23px,2.4vw,37px)!important;line-height:1.45!important;color:#f6c4f2!important;text-shadow:0 2px 2px #260c25,0 0 14px #e886d488!important;background:none!important;box-shadow:none!important;padding:0 0 5px!important;letter-spacing:-.03em;transform:rotate(-3deg);border-bottom:2px solid #f6c4f2aa}
+#ks-gallery.ks-cinema-gallery .ks-cinema-title:before{content:'▤';font:23px Georgia,serif;display:inline-block;transform:rotate(-14deg);margin-right:10px;color:#e9b5f4}
+#ks-gallery.ks-cinema-gallery .ks-cinema-title:after{content:'  ♡';font:25px Georgia,serif;color:#e9b5f4}
+@media(max-width:700px){#ks-gallery.ks-cinema-gallery .ks-cinema-title{left:12px!important;top:12px!important;max-width:90%;font-size:21px!important}#ks-gallery.ks-cinema-gallery .ks-cinema-note{bottom:35px;padding:5px 10px;font-size:12px;max-width:70%}}
+
+/* Final refinements: notes under the album title; preserve complete photos. */
+#ks-gallery.ks-cinema-gallery .ks-cinema-note{
+ top:13.3%!important;bottom:auto!important;left:26.5%!important;
+ transform:none!important;min-width:0!important;max-width:42%!important;
+ padding:4px 12px 5px!important;gap:6px!important;
+ font-size:clamp(10px,.9vw,14px)!important;line-height:1.15!important;
+ background:rgba(31,13,39,.72)!important;color:#f9d6f5!important;
+ border:1px solid rgba(243,175,242,.38)!important;border-radius:20px!important;
+ clip-path:none!important;box-shadow:0 3px 12px #14051d66!important;
+ backdrop-filter:blur(8px);white-space:nowrap!important;
+}
+#ks-gallery.ks-cinema-gallery .ks-note-symbol{font-size:clamp(11px,1vw,15px)!important;color:#f2b2e7!important}
+#ks-gallery.ks-cinema-gallery .ks-cinema-screen-inner{background:#25152a!important}
+#ks-gallery.ks-cinema-gallery .ks-cinema-backdrop{
+ inset:-12%!important;width:124%!important;height:124%!important;
+ filter:blur(23px) brightness(.76) saturate(.85)!important;opacity:1!important;
+}
+#ks-gallery.ks-cinema-gallery .ks-cinema-main{
+ position:absolute!important;inset:0!important;width:100%!important;height:100%!important;
+ object-fit:contain!important;object-position:center!important;
+}
+#ks-gallery.ks-cinema-gallery .ks-cinema-screen-inner.ks-photo-landscape .ks-cinema-main{object-fit:cover!important}
+#ks-gallery.ks-cinema-gallery .ks-cinema-screen-inner.ks-photo-portrait .ks-cinema-main{
+ width:100%!important;max-width:100%!important;object-fit:contain!important;
+}
+#ks-gallery.ks-cinema-gallery .ks-cinema-screen-inner.ks-photo-portrait:before{
+ content:''!important;display:block!important;position:absolute;inset:0;z-index:1;
+ background:linear-gradient(90deg,rgba(15,8,20,.15),transparent 20%,transparent 80%,rgba(15,8,20,.15));
+ pointer-events:none;
+}
+@media(max-width:700px){
+ #ks-gallery.ks-cinema-gallery .ks-cinema-note{top:13%!important;left:13px!important;max-width:73%!important;padding:2px 6px!important;font-size:9px!important}
+ #ks-gallery.ks-cinema-gallery .ks-cinema-title{top:2%!important;font-size:clamp(13px,3vw,21px)!important}
+}
+
+/* MOBILE CINEMA: independent responsive layout, desktop remains unchanged */
+@media (max-width: 700px) {
+ #ks-gallery.ks-cinema-gallery{background:#100917!important;overflow:hidden!important;}
+ #ks-gallery.ks-cinema-gallery .ks-top{padding:8px 13px!important;min-height:0!important;flex:0 0 auto!important;background:#140c1c!important;gap:8px!important;align-items:center!important;}
+ #ks-gallery.ks-cinema-gallery .ks-top .ks-heading{font-size:clamp(16px,5vw,23px)!important;line-height:1.12!important;margin:0!important;}
+ #ks-gallery.ks-cinema-gallery .ks-top .ks-kicker{font-size:8px!important;}
+ #ks-gallery.ks-cinema-gallery .ks-close{width:38px!important;height:38px!important;font-size:25px!important;min-width:38px!important;}
+ #ks-gallery.ks-cinema-gallery .ks-stage{display:block!important;overflow-x:hidden!important;overflow-y:auto!important;overscroll-behavior:contain;min-height:0!important;flex:1!important;background:#100917!important;}
+ #ks-gallery.ks-cinema-gallery .ks-cinema-room{width:100%!important;min-height:calc(100% - 1px)!important;height:auto!important;aspect-ratio:auto!important;overflow:visible!important;position:relative!important;display:flex!important;flex-direction:column!important;align-items:stretch!important;gap:10px!important;padding:14px 12px 20px!important;box-sizing:border-box!important;background:linear-gradient(180deg,#170c20 0%,#21112c 38%,#100917 100%)!important;}
+ #ks-gallery.ks-cinema-gallery .ks-cinema-room:before{display:block!important;content:''!important;position:absolute!important;top:0!important;left:0!important;right:0!important;height:190px!important;background:url('../images/cinema-purple-realistic.webp') left top / auto 220px no-repeat!important;opacity:.37!important;pointer-events:none!important;}
+ #ks-gallery.ks-cinema-gallery .ks-cinema-title{position:relative!important;top:auto!important;left:auto!important;right:auto!important;max-width:100%!important;width:100%!important;transform:none!important;font-size:clamp(20px,6vw,29px)!important;line-height:1.25!important;padding:0 4px 5px!important;margin:0!important;order:0!important;z-index:7!important;box-sizing:border-box!important;}
+ #ks-gallery.ks-cinema-gallery .ks-cinema-title:before{font-size:18px!important;}
+ #ks-gallery.ks-cinema-gallery .ks-cinema-title:after{font-size:18px!important;}
+ #ks-gallery.ks-cinema-gallery .ks-cinema-note{position:relative!important;top:auto!important;bottom:auto!important;left:auto!important;right:auto!important;transform:none!important;order:1!important;align-self:flex-start!important;max-width:95%!important;padding:5px 12px!important;font-size:12px!important;line-height:1.3!important;z-index:7!important;white-space:normal!important;}
+ #ks-gallery.ks-cinema-gallery .ks-cinema-screen{position:relative!important;top:auto!important;left:auto!important;right:auto!important;bottom:auto!important;width:100%!important;height:auto!important;aspect-ratio:4/3!important;min-height:0!important;order:2!important;z-index:5!important;border-radius:18px!important;border:2px solid #d18adb99!important;box-shadow:0 0 24px #d17de455!important;}
+ #ks-gallery.ks-cinema-gallery .ks-cinema-screen-inner{border-radius:16px!important;}
+ #ks-gallery.ks-cinema-gallery .ks-cinema-main{object-fit:contain!important;}
+ #ks-gallery.ks-cinema-gallery .ks-cinema-screen-inner.ks-photo-landscape .ks-cinema-main{object-fit:contain!important;}
+ #ks-gallery.ks-cinema-gallery .ks-cinema-arrow{width:42px!important;height:42px!important;font-size:30px!important;top:50%!important;background:#23122cc9!important;touch-action:manipulation;}
+ #ks-gallery.ks-cinema-gallery .ks-cinema-left{left:7px!important;}
+ #ks-gallery.ks-cinema-gallery .ks-cinema-right{right:7px!important;}
+ #ks-gallery.ks-cinema-gallery .ks-cinema-expand{width:38px!important;height:38px!important;right:8px!important;top:8px!important;font-size:21px!important;}
+ #ks-gallery.ks-cinema-gallery .ks-cinema-count{position:relative!important;top:auto!important;left:auto!important;right:auto!important;bottom:auto!important;transform:none!important;text-align:center!important;width:100%!important;order:3!important;font-size:13px!important;margin:0!important;}
+ #ks-gallery.ks-cinema-gallery .ks-rail{position:relative!important;top:auto!important;left:auto!important;right:auto!important;bottom:auto!important;order:4!important;width:100%!important;height:94px!important;min-height:94px!important;max-width:100%!important;display:flex!important;flex-direction:row!important;align-items:stretch!important;gap:8px!important;overflow-x:auto!important;overflow-y:hidden!important;padding:8px!important;margin:0!important;scroll-snap-type:x proximity!important;touch-action:pan-x!important;box-sizing:border-box!important;border-radius:10px!important;}
+ #ks-gallery.ks-cinema-gallery .ks-card,#ks-gallery.ks-cinema-gallery .ks-card:nth-child(4n+2),#ks-gallery.ks-cinema-gallery .ks-card:nth-child(4n+3){display:block!important;flex:0 0 91px!important;width:91px!important;height:76px!important;min-height:76px!important;aspect-ratio:auto!important;align-self:auto!important;overflow:hidden!important;padding:3px!important;border-radius:7px!important;scroll-snap-align:center!important;transform:none!important;opacity:1!important;transition:none!important;}
+ #ks-gallery.ks-cinema-gallery .ks-card img{object-fit:cover!important;width:100%!important;height:100%!important;}
+ #ks-gallery.ks-cinema-gallery .ks-card span{display:none!important;}
+ #ks-gallery.ks-cinema-gallery .ks-bottom{flex:0 0 auto!important;padding:7px 12px max(8px,env(safe-area-inset-bottom))!important;font-size:10px!important;min-height:0!important;}
+ #ks-gallery.ks-cinema-gallery .ks-live-light,#ks-gallery.ks-cinema-gallery .ks-live-dust,#ks-gallery.ks-cinema-gallery .ks-live-reel{opacity:.35!important;pointer-events:none!important;}
+ #ks-gallery.ks-cinema-gallery .ks-live-beam,#ks-gallery.ks-cinema-gallery .ks-live-core{display:none!important;}
+ #ks-gallery.ks-cinema-gallery .ks-live-flare{left:10%!important;top:22%!important;}
+}
+@media(max-width:380px){#ks-gallery.ks-cinema-gallery .ks-cinema-room{padding:10px 9px 16px!important;gap:8px!important}#ks-gallery.ks-cinema-gallery .ks-cinema-screen{aspect-ratio:1/1!important}#ks-gallery.ks-cinema-gallery .ks-rail{height:83px!important;min-height:83px!important}#ks-gallery.ks-cinema-gallery .ks-card{flex-basis:80px!important;width:80px!important;height:65px!important;min-height:65px!important}}
+@media(max-height:640px) and (max-width:700px){#ks-gallery.ks-cinema-gallery .ks-cinema-screen{aspect-ratio:16/10!important}}
+
+/* MOBILE FIX 2026-11-11: keep the real projector visible above the photo */
+@media (max-width:700px){
+ #ks-gallery.ks-cinema-gallery .ks-cinema-room{isolation:isolate!important;}
+ #ks-gallery.ks-cinema-gallery .ks-cinema-room:before{
+  content:''!important;display:block!important;position:absolute!important;
+  left:0!important;right:0!important;top:103px!important;height:156px!important;
+  background-image:url('../images/cinema-purple-realistic.webp')!important;
+  background-size:auto 390px!important;background-position:left 43%!important;background-repeat:no-repeat!important;
+  opacity:1!important;filter:brightness(1.1) saturate(1.08)!important;
+  -webkit-mask-image:linear-gradient(to right,#000 0%,#000 39%,transparent 88%)!important;
+  mask-image:linear-gradient(to right,#000 0%,#000 39%,transparent 88%)!important;
+  pointer-events:none!important;z-index:2!important;
+ }
+ #ks-gallery.ks-cinema-gallery .ks-cinema-room:after{
+  content:''!important;display:block!important;position:absolute!important;
+  left:105px!important;top:162px!important;width:calc(100% - 120px)!important;height:74px!important;
+  background:linear-gradient(90deg,rgba(248,164,255,.6),rgba(224,118,252,.19) 55%,transparent)!important;
+  clip-path:polygon(0 36%,100% 0,100% 100%,0 64%)!important;
+  filter:blur(8px)!important;transform-origin:left center!important;
+  animation:ks-beam-breathe 2.9s ease-in-out infinite alternate!important;
+  pointer-events:none!important;z-index:3!important;
+ }
+ #ks-gallery.ks-cinema-gallery .ks-cinema-screen{margin-top:145px!important;}
+ #ks-gallery.ks-cinema-gallery .ks-cinema-title,#ks-gallery.ks-cinema-gallery .ks-cinema-note{z-index:7!important;}
+ #ks-gallery.ks-cinema-gallery .ks-live-reel{display:none!important;}
+}
+@media (max-width:380px){
+ #ks-gallery.ks-cinema-gallery .ks-cinema-room:before{top:91px!important;height:138px!important;background-size:auto 345px!important;}
+ #ks-gallery.ks-cinema-gallery .ks-cinema-room:after{left:92px!important;top:145px!important;width:calc(100% - 102px)!important;height:64px!important;}
+ #ks-gallery.ks-cinema-gallery .ks-cinema-screen{margin-top:128px!important;}
+}
+@media (max-width:700px) and (prefers-reduced-motion:reduce){#ks-gallery.ks-cinema-gallery .ks-cinema-room:after{animation:none!important}}
+/* Reliable mobile projector: real image in its own flex row, not hidden behind the screen */
+@media(max-width:700px){
+ #ks-gallery.ks-cinema-gallery .ks-cinema-room:before{
+  position:relative!important;display:block!important;flex:0 0 165px!important;align-self:stretch!important;
+  width:100%!important;height:165px!important;min-height:165px!important;
+  top:auto!important;left:auto!important;right:auto!important;bottom:auto!important;
+  order:2!important;z-index:4!important;
+  background:url('../images/mobile-projector.webp') left 45% / auto 275px no-repeat!important;
+  opacity:1!important;filter:none!important;mask-image:none!important;-webkit-mask-image:none!important;
+ }
+ #ks-gallery.ks-cinema-gallery .ks-cinema-room:after{
+  left:95px!important;top:153px!important;width:calc(100% - 105px)!important;height:70px!important;
+  opacity:.85!important;z-index:4!important;
+ }
+ #ks-gallery.ks-cinema-gallery .ks-cinema-screen{order:3!important;margin-top:0!important;}
+ #ks-gallery.ks-cinema-gallery .ks-cinema-count{order:4!important;}
+ #ks-gallery.ks-cinema-gallery .ks-rail{order:5!important;}
+}
+@media(max-width:380px){
+ #ks-gallery.ks-cinema-gallery .ks-cinema-room:before{height:145px!important;min-height:145px!important;flex-basis:145px!important;background-size:auto 250px!important;}
+ #ks-gallery.ks-cinema-gallery .ks-cinema-screen{margin-top:0!important;}
+}
+
+/* MOBILE CINEMA v3: projector anchored to the screen, thumbnails retained */
+@media (max-width:700px){
+ #ks-gallery.ks-cinema-gallery .ks-cinema-room{padding:10px 10px 14px!important;gap:7px!important;overflow-y:auto!important;overflow-x:hidden!important;min-height:100%!important;}
+ #ks-gallery.ks-cinema-gallery .ks-cinema-title{order:0!important;position:relative!important;z-index:8!important;margin:0!important;}
+ #ks-gallery.ks-cinema-gallery .ks-cinema-note{order:1!important;position:relative!important;z-index:8!important;margin:0 0 2px!important;}
+ #ks-gallery.ks-cinema-gallery .ks-cinema-room:before{
+  content:''!important;display:block!important;position:absolute!important;flex:none!important;align-self:auto!important;
+  top:86px!important;left:3px!important;right:auto!important;bottom:auto!important;
+  width:138px!important;height:150px!important;min-height:0!important;
+  background:url('../images/mobile-projector.webp') left center / auto 225px no-repeat!important;
+  z-index:6!important;pointer-events:none!important;opacity:1!important;
+ }
+ #ks-gallery.ks-cinema-gallery .ks-cinema-room:after{
+  content:''!important;position:absolute!important;top:143px!important;left:97px!important;
+  width:calc(100% - 107px)!important;height:88px!important;
+  background:linear-gradient(90deg,rgba(249,171,255,.58),rgba(228,127,255,.23) 48%,transparent)!important;
+  clip-path:polygon(0 43%,100% 0,100% 100%,0 57%)!important;
+  filter:blur(5px)!important;opacity:.9!important;z-index:5!important;
+  animation:ks-beam-breathe 2.9s ease-in-out infinite alternate!important;pointer-events:none!important;
+ }
+ #ks-gallery.ks-cinema-gallery .ks-cinema-screen{
+  order:2!important;position:relative!important;margin-top:78px!important;
+  aspect-ratio:4/3!important;width:100%!important;z-index:4!important;
+ }
+ #ks-gallery.ks-cinema-gallery .ks-cinema-count{order:3!important;margin:1px 0!important;}
+ #ks-gallery.ks-cinema-gallery .ks-rail{order:4!important;display:flex!important;visibility:visible!important;opacity:1!important;height:86px!important;min-height:86px!important;flex-shrink:0!important;}
+ #ks-gallery.ks-cinema-gallery .ks-bottom{order:5!important;}
+}
+@media(max-width:380px){
+ #ks-gallery.ks-cinema-gallery .ks-cinema-room:before{top:81px!important;width:118px!important;height:132px!important;background-size:auto 200px!important;}
+ #ks-gallery.ks-cinema-gallery .ks-cinema-room:after{top:129px!important;left:86px!important;width:calc(100% - 96px)!important;height:76px!important;}
+ #ks-gallery.ks-cinema-gallery .ks-cinema-screen{margin-top:70px!important;aspect-ratio:4/3!important;}
+}
+@media(max-width:700px) and (prefers-reduced-motion:reduce){#ks-gallery.ks-cinema-gallery .ks-cinema-room:after{animation:none!important}}
+
+
+/* MOBILE CINEMA v4 — single composition; only affects phones */
+@media (max-width:700px){
+ #ks-gallery.ks-cinema-gallery .ks-cinema-room{
+  --projector-top:78px;--projector-width:clamp(90px,27vw,125px);
+  position:relative!important;display:flex!important;flex-direction:column!important;
+  gap:7px!important;padding:12px 9px 16px!important;overflow:visible!important;
+  background:radial-gradient(ellipse at 13% 30%,#482452 0%,#211128 42%,#120a1a 85%)!important;
+ }
+ #ks-gallery.ks-cinema-gallery .ks-cinema-title{order:0!important;position:relative!important;top:auto!important;left:auto!important;width:100%!important;max-width:100%!important;font-size:clamp(19px,5.5vw,27px)!important;line-height:1.25!important;white-space:normal!important;margin:0!important;padding:0 2px 4px!important;z-index:8!important;}
+ #ks-gallery.ks-cinema-gallery .ks-cinema-note{order:1!important;position:relative!important;top:auto!important;left:auto!important;margin:0 0 0 2px!important;z-index:8!important;}
+ /* projector has no rectangular edge: feather into the same scene */
+ #ks-gallery.ks-cinema-gallery .ks-cinema-room:before{
+  content:''!important;display:block!important;position:absolute!important;flex:none!important;
+  top:var(--projector-top)!important;left:0!important;right:auto!important;bottom:auto!important;
+  width:var(--projector-width)!important;height:225px!important;min-height:0!important;
+  background-image:url('../images/mobile-projector.webp')!important;
+  background-repeat:no-repeat!important;background-position:left top!important;
+  background-size:auto 260px!important;
+  opacity:1!important;z-index:7!important;pointer-events:none!important;
+  -webkit-mask-image:linear-gradient(90deg,#000 0%,#000 65%,transparent 100%)!important;
+  mask-image:linear-gradient(90deg,#000 0%,#000 65%,transparent 100%)!important;
+  filter:drop-shadow(0 0 12px #b05ac066)!important;
+ }
+ /* light originates at lens and washes into upper-left screen */
+ #ks-gallery.ks-cinema-gallery .ks-cinema-room:after{
+  content:''!important;display:block!important;position:absolute!important;
+  top:calc(var(--projector-top) + 103px)!important;left:calc(var(--projector-width) - 19px)!important;
+  width:calc(100% - var(--projector-width) + 9px)!important;height:115px!important;
+  background:linear-gradient(90deg,rgba(255,186,255,.64),rgba(238,152,255,.29) 48%,rgba(210,122,255,.05))!important;
+  clip-path:polygon(0 42%,100% 0,100% 100%,0 58%)!important;
+  filter:blur(7px)!important;opacity:.82!important;z-index:6!important;
+  animation:ks-beam-breathe 3.1s ease-in-out infinite alternate!important;pointer-events:none!important;
+ }
+ #ks-gallery.ks-cinema-gallery .ks-cinema-screen{
+  order:2!important;position:relative!important;top:auto!important;left:auto!important;
+  width:calc(100% - 8px)!important;margin:68px 0 0 8px!important;
+  aspect-ratio:1.22!important;height:auto!important;z-index:4!important;
+  border-radius:19px!important;border:2px solid #e6a2e6bb!important;
+  box-shadow:0 0 0 5px #31183a,0 0 26px #d27add66,inset 0 0 18px #e7a4f533!important;
+ }
+ #ks-gallery.ks-cinema-gallery .ks-cinema-screen-inner{border-radius:17px!important;}
+ #ks-gallery.ks-cinema-gallery .ks-cinema-count{order:3!important;position:relative!important;margin:7px 0 1px!important;}
+ #ks-gallery.ks-cinema-gallery .ks-rail{
+  order:4!important;position:relative!important;display:flex!important;visibility:visible!important;
+  opacity:1!important;width:100%!important;max-width:100%!important;height:99px!important;
+  min-height:99px!important;overflow-x:auto!important;overflow-y:hidden!important;z-index:5!important;
+  padding:8px 7px!important;gap:8px!important;scroll-snap-type:x proximity!important;
+ }
+ #ks-gallery.ks-cinema-gallery .ks-card{flex:0 0 90px!important;width:90px!important;height:79px!important;min-height:79px!important;}
+ #ks-gallery.ks-cinema-gallery .ks-live-light,#ks-gallery.ks-cinema-gallery .ks-live-dust{pointer-events:none!important;}
+ #ks-gallery.ks-cinema-gallery .ks-live-beam,#ks-gallery.ks-cinema-gallery .ks-live-core{display:none!important;}
+}
+@media(max-width:380px){
+ #ks-gallery.ks-cinema-gallery .ks-cinema-room{--projector-top:77px;--projector-width:91px;}
+ #ks-gallery.ks-cinema-gallery .ks-cinema-room:before{height:194px!important;background-size:auto 232px!important;}
+ #ks-gallery.ks-cinema-gallery .ks-cinema-room:after{top:calc(var(--projector-top) + 92px)!important;height:96px!important;}
+ #ks-gallery.ks-cinema-gallery .ks-cinema-screen{margin-top:62px!important;aspect-ratio:1.12!important;}
+ #ks-gallery.ks-cinema-gallery .ks-rail{height:86px!important;min-height:86px!important;}
+ #ks-gallery.ks-cinema-gallery .ks-card{flex-basis:79px!important;width:79px!important;height:66px!important;min-height:66px!important;}
+}
+@media(max-width:700px) and (prefers-reduced-motion:reduce){#ks-gallery.ks-cinema-gallery .ks-cinema-room:after{animation:none!important}}
+
+/* Mobile cinema v5: integrated projector / screen scene, no beam over photo */
+@media(max-width:700px){
+ #ks-gallery.ks-cinema-gallery .ks-cinema-room{--lens-y:155px;gap:9px!important;padding:24px 12px 22px!important;overflow-x:hidden!important;background:radial-gradient(ellipse at 12% 30%,#4b1d4c 0%,#210d2a 48%,#110719 100%)!important;}
+ #ks-gallery.ks-cinema-gallery .ks-cinema-title{font-size:clamp(18px,5vw,25px)!important;text-align:center!important;line-height:1.35!important;padding:0 0 9px!important;margin:0 0 4px!important;white-space:normal!important;text-shadow:0 0 12px #e678da99!important;}
+ #ks-gallery.ks-cinema-gallery .ks-cinema-note{align-self:center!important;margin:0!important;max-width:85%!important;font-size:12px!important;}
+ #ks-gallery.ks-cinema-gallery .ks-cinema-room:before{top:111px!important;left:0!important;width:clamp(90px,25vw,122px)!important;height:210px!important;background-size:auto 248px!important;background-position:left top!important;z-index:7!important;mask-image:linear-gradient(90deg,#000 0%,#000 78%,transparent 100%)!important;-webkit-mask-image:linear-gradient(90deg,#000 0%,#000 78%,transparent 100%)!important;}
+ #ks-gallery.ks-cinema-gallery .ks-cinema-room:after{top:222px!important;left:clamp(76px,20vw,100px)!important;width:calc(100% - clamp(76px,20vw,100px))!important;height:85px!important;z-index:3!important;opacity:.52!important;clip-path:polygon(0 40%,100% 0,100% 100%,0 60%)!important;filter:blur(10px)!important;background:linear-gradient(90deg,#ffb6f7a8,#d88ef740,transparent)!important;}
+ #ks-gallery.ks-cinema-gallery .ks-cinema-screen{margin:188px 0 0 0!important;width:100%!important;aspect-ratio:1.05!important;z-index:5!important;border:3px solid #e6a1d9!important;border-radius:24px!important;box-shadow:0 0 0 7px #4a204c,0 0 30px #f485e677,inset 0 0 14px #ffbeed!important;overflow:hidden!important;}
+ #ks-gallery.ks-cinema-gallery .ks-cinema-screen-inner{border-radius:20px!important;overflow:hidden!important;}
+ #ks-gallery.ks-cinema-gallery .ks-cinema-count{margin:9px auto 5px!important;}
+ #ks-gallery.ks-cinema-gallery .ks-rail{height:110px!important;min-height:110px!important;gap:8px!important;}
+ #ks-gallery.ks-cinema-gallery .ks-card{flex-basis:92px!important;width:92px!important;height:86px!important;min-height:86px!important;}
+}
+@media(max-width:390px){
+ #ks-gallery.ks-cinema-gallery .ks-cinema-room{padding:18px 9px!important;}
+ #ks-gallery.ks-cinema-gallery .ks-cinema-room:before{top:101px!important;height:193px!important;background-size:auto 230px!important;}
+ #ks-gallery.ks-cinema-gallery .ks-cinema-room:after{top:205px!important;}
+ #ks-gallery.ks-cinema-gallery .ks-cinema-screen{margin-top:168px!important;aspect-ratio:1.02!important;}
+ #ks-gallery.ks-cinema-gallery .ks-rail{height:96px!important;min-height:96px!important;}
+}
+
+/* Mobile reference composition v6: sharp film-frame sides, coherent projection */
+@media(max-width:700px){
+ #ks-gallery.ks-cinema-gallery .ks-cinema-room{
+  position:relative!important;isolation:isolate!important;display:flex!important;flex-direction:column!important;align-items:stretch!important;
+  gap:0!important;padding:24px 13px 24px!important;overflow:hidden!important;
+  background:radial-gradient(ellipse at 16% 33%,#46204b 0%,#210d2a 40%,#100819 82%)!important;
+  border-radius:0!important;
+ }
+ #ks-gallery.ks-cinema-gallery .ks-cinema-title{order:0!important;position:relative!important;top:auto!important;left:auto!important;right:auto!important;max-width:100%!important;width:100%!important;
+  font-size:clamp(17px,4.6vw,25px)!important;line-height:1.28!important;text-align:center!important;white-space:normal!important;
+  margin:0 0 10px!important;padding:0 0 9px!important;border-bottom:1px solid #e9a3e5aa!important;z-index:12!important;
+ }
+ #ks-gallery.ks-cinema-gallery .ks-cinema-note{order:1!important;position:relative!important;top:auto!important;left:auto!important;align-self:center!important;max-width:85%!important;margin:0!important;z-index:12!important;font-size:12px!important;}
+ #ks-gallery.ks-cinema-gallery .ks-cinema-room:before{
+  content:''!important;display:block!important;position:absolute!important;top:115px!important;left:0!important;right:auto!important;bottom:auto!important;
+  width:clamp(95px,27vw,135px)!important;height:230px!important;z-index:10!important;pointer-events:none!important;
+  background:url('../images/mobile-projector.webp') left top / auto 255px no-repeat!important;
+  -webkit-mask-image:linear-gradient(90deg,#000 0%,#000 75%,transparent 100%),linear-gradient(180deg,#000 0%,#000 85%,transparent 100%)!important;
+  mask-image:linear-gradient(90deg,#000 0%,#000 75%,transparent 100%)!important;
+  filter:drop-shadow(0 0 10px #f293e644)!important;opacity:1!important;
+ }
+ #ks-gallery.ks-cinema-gallery .ks-cinema-room:after{
+  content:''!important;display:block!important;position:absolute!important;top:207px!important;left:clamp(77px,22vw,112px)!important;right:auto!important;bottom:auto!important;
+  width:calc(100% - clamp(77px,22vw,112px))!important;height:85px!important;z-index:7!important;pointer-events:none!important;
+  clip-path:polygon(0 44%,100% 0,100% 100%,0 56%)!important;
+  background:linear-gradient(90deg,#ffb1ffbb 0%,#eb9bff60 40%,#ec9aff12 100%)!important;
+  filter:blur(8px)!important;opacity:.64!important;animation:ks-beam-breathe 3s ease-in-out infinite alternate!important;
+ }
+ #ks-gallery.ks-cinema-gallery .ks-cinema-screen{
+  order:2!important;position:relative!important;left:auto!important;top:auto!important;right:auto!important;bottom:auto!important;
+  margin:91px 9px 0!important;width:calc(100% - 18px)!important;height:auto!important;aspect-ratio:1.04!important;
+  padding:0 15px!important;border:2px solid #ee91d8!important;border-radius:15px!important;z-index:5!important;
+  background:linear-gradient(90deg,#38123f,#1a0b22 12%,#1a0b22 88%,#38123f)!important;
+  box-shadow:0 0 0 7px #2c1038,0 0 0 9px #a54c9c66,0 0 28px #f484db88,inset 0 0 12px #e77dd366!important;
+  overflow:visible!important;
+ }
+ #ks-gallery.ks-cinema-gallery .ks-cinema-screen:before,#ks-gallery.ks-cinema-gallery .ks-cinema-screen:after{
+  content:''!important;display:block!important;position:absolute!important;top:9px!important;bottom:9px!important;width:10px!important;z-index:8!important;pointer-events:none!important;
+  background:repeating-linear-gradient(to bottom,#f2a0e7 0 14px,transparent 14px 28px)!important;opacity:.85!important;border-radius:2px!important;
+ }
+ #ks-gallery.ks-cinema-gallery .ks-cinema-screen:before{left:2px!important;right:auto!important;}
+ #ks-gallery.ks-cinema-gallery .ks-cinema-screen:after{right:2px!important;left:auto!important;}
+ #ks-gallery.ks-cinema-gallery .ks-cinema-screen-inner{border-radius:10px!important;overflow:hidden!important;}
+ #ks-gallery.ks-cinema-gallery .ks-cinema-main{object-fit:contain!important;}
+ #ks-gallery.ks-cinema-gallery .ks-cinema-count{order:3!important;position:relative!important;left:auto!important;right:auto!important;top:auto!important;bottom:auto!important;transform:none!important;margin:15px auto 12px!important;}
+ #ks-gallery.ks-cinema-gallery .ks-rail{order:4!important;position:relative!important;left:auto!important;right:auto!important;top:auto!important;bottom:auto!important;
+  width:100%!important;max-width:100%!important;height:100px!important;min-height:100px!important;margin:0!important;padding:7px!important;gap:7px!important;
+  display:flex!important;visibility:visible!important;opacity:1!important;overflow-x:auto!important;overflow-y:hidden!important;z-index:6!important;
+  border-radius:7px!important;scroll-snap-type:x proximity!important;
+ }
+ #ks-gallery.ks-cinema-gallery .ks-card{flex:0 0 88px!important;width:88px!important;height:82px!important;min-height:82px!important;border-radius:6px!important;}
+ #ks-gallery.ks-cinema-gallery .ks-live-beam,#ks-gallery.ks-cinema-gallery .ks-live-core{display:none!important;}
+}
+@media(max-width:390px){
+ #ks-gallery.ks-cinema-gallery .ks-cinema-room{padding:18px 9px 19px!important;}
+ #ks-gallery.ks-cinema-gallery .ks-cinema-room:before{top:102px!important;height:205px!important;background-size:auto 235px!important;}
+ #ks-gallery.ks-cinema-gallery .ks-cinema-room:after{top:187px!important;height:78px!important;}
+ #ks-gallery.ks-cinema-gallery .ks-cinema-screen{margin-top:84px!important;aspect-ratio:1.02!important;}
+ #ks-gallery.ks-cinema-gallery .ks-rail{height:90px!important;min-height:90px!important;}
+ #ks-gallery.ks-cinema-gallery .ks-card{flex-basis:79px!important;width:79px!important;height:73px!important;min-height:73px!important;}
+}
+
+/* MOBILE v7: projector stays above the screen, never covers a photo */
+@media (max-width:700px){
+ #ks-gallery.ks-cinema-gallery .ks-cinema-room{position:relative!important;overflow:hidden!important;padding:20px 12px 20px!important;gap:0!important;background:radial-gradient(ellipse at 20% 30%,#37163e,#160a1e 68%)!important}
+ #ks-gallery.ks-cinema-gallery .ks-cinema-title{order:0!important;position:relative!important;margin:0 0 8px!important;padding:0 0 8px!important;text-align:center!important;z-index:12!important;font-size:clamp(17px,4.5vw,24px)!important}
+ #ks-gallery.ks-cinema-gallery .ks-cinema-note{order:1!important;position:relative!important;margin:0 auto!important;z-index:12!important}
+ #ks-gallery.ks-cinema-gallery .ks-cinema-room:before{content:''!important;display:block!important;position:absolute!important;left:0!important;top:132px!important;width:96px!important;height:135px!important;background:url('../images/mobile-projector.webp') left top / auto 167px no-repeat!important;z-index:8!important;pointer-events:none!important;opacity:1!important;filter:drop-shadow(0 0 9px #c56ab977)!important;-webkit-mask-image:linear-gradient(90deg,#000 0 78%,transparent 100%),linear-gradient(180deg,#000 0 78%,transparent 100%)!important;mask-image:linear-gradient(90deg,#000 0 78%,transparent 100%),linear-gradient(180deg,#000 0 78%,transparent 100%)!important;mask-composite:intersect!important}
+ #ks-gallery.ks-cinema-gallery .ks-cinema-room:after{content:''!important;display:block!important;position:absolute!important;left:65px!important;top:202px!important;width:calc(100% - 72px)!important;height:64px!important;background:linear-gradient(90deg,rgba(255,182,252,.62),rgba(215,122,234,.18) 60%,transparent)!important;clip-path:polygon(0 45%,100% 0,100% 100%,0 55%)!important;filter:blur(8px)!important;z-index:3!important;opacity:.85!important;pointer-events:none!important;animation:ks-beam-breathe 3.1s ease-in-out infinite alternate!important}
+ #ks-gallery.ks-cinema-gallery .ks-cinema-screen{order:2!important;position:relative!important;margin:154px 0 0!important;width:100%!important;aspect-ratio:1.12!important;z-index:5!important;border-radius:19px!important;overflow:hidden!important;border:2px solid #d783d1!important;box-shadow:0 0 0 5px #3e1c43,0 0 26px #e68de477!important}
+ #ks-gallery.ks-cinema-gallery .ks-cinema-screen-inner{border-radius:15px!important;overflow:hidden!important}
+ #ks-gallery.ks-cinema-gallery .ks-cinema-count{order:3!important;margin:12px auto 9px!important}
+ #ks-gallery.ks-cinema-gallery .ks-rail{order:4!important;display:flex!important;visibility:visible!important;opacity:1!important;height:94px!important;min-height:94px!important;margin:0!important;overflow-x:auto!important}
+ #ks-gallery.ks-cinema-gallery .ks-live-beam,#ks-gallery.ks-cinema-gallery .ks-live-core{display:none!important}
+}
+@media(max-width:390px){
+ #ks-gallery.ks-cinema-gallery .ks-cinema-room:before{top:122px!important;width:88px!important;height:125px!important;background-size:auto 154px!important}
+ #ks-gallery.ks-cinema-gallery .ks-cinema-room:after{top:188px!important;left:60px!important}
+ #ks-gallery.ks-cinema-gallery .ks-cinema-screen{margin-top:144px!important;aspect-ratio:1.05!important}
+}
+
+/* FINAL MOBILE COMPOSITION — projector anchored below the screen, projecting upward.
+   Desktop styles are intentionally untouched. */
+@media (max-width:700px){
+ #ks-gallery.ks-cinema-gallery .ks-cinema-room{position:relative!important;isolation:isolate!important;overflow:hidden!important;display:flex!important;flex-direction:column!important;gap:0!important;padding:25px 12px 30px!important;background:radial-gradient(ellipse at 35% 40%,#321337,#100716 78%)!important}
+ #ks-gallery.ks-cinema-gallery .ks-cinema-title{order:0!important;position:relative!important;top:auto!important;left:auto!important;right:auto!important;z-index:12!important;text-align:center!important;font-size:clamp(17px,4.4vw,24px)!important;line-height:1.3!important;white-space:normal!important;margin:0 0 9px!important;padding:0 0 9px!important}
+ #ks-gallery.ks-cinema-gallery .ks-cinema-note{order:1!important;position:relative!important;top:auto!important;left:auto!important;z-index:12!important;margin:0 auto 18px!important;font-size:12px!important}
+ #ks-gallery.ks-cinema-gallery .ks-cinema-screen{order:2!important;position:relative!important;top:auto!important;left:auto!important;right:auto!important;width:100%!important;margin:0!important;aspect-ratio:0.94!important;z-index:4!important;border-radius:21px!important;border:2px solid #f19adf!important;box-shadow:0 0 0 5px #3e1841,0 0 24px #ee77d488,inset 0 0 13px #f8b1ef!important;overflow:hidden!important}
+ #ks-gallery.ks-cinema-gallery .ks-cinema-screen-inner{border-radius:16px!important;overflow:hidden!important}
+ #ks-gallery.ks-cinema-gallery .ks-cinema-count{order:3!important;position:relative!important;margin:14px auto 22px!important;z-index:6!important}
+ #ks-gallery.ks-cinema-gallery .ks-rail{order:4!important;position:relative!important;left:auto!important;right:auto!important;top:auto!important;bottom:auto!important;margin:0 0 0 84px!important;width:calc(100% - 84px)!important;max-width:calc(100% - 84px)!important;height:93px!important;min-height:93px!important;display:flex!important;visibility:visible!important;opacity:1!important;overflow-x:auto!important;z-index:9!important}
+ #ks-gallery.ks-cinema-gallery .ks-card{flex:0 0 76px!important;width:76px!important;height:80px!important;min-height:80px!important}
+ #ks-gallery.ks-cinema-gallery .ks-cinema-room:before{content:''!important;position:absolute!important;display:block!important;top:auto!important;right:auto!important;left:0!important;bottom:7px!important;width:112px!important;height:267px!important;z-index:10!important;opacity:1!important;background:url('../images/projector-bottom.png') left bottom / 112px auto no-repeat!important;mask-image:none!important;-webkit-mask-image:none!important;filter:drop-shadow(0 0 9px #d76bd966)!important;pointer-events:none!important}
+ #ks-gallery.ks-cinema-gallery .ks-cinema-room:after{content:''!important;position:absolute!important;display:block!important;top:auto!important;right:auto!important;left:74px!important;bottom:190px!important;width:min(65vw,320px)!important;height:100px!important;z-index:3!important;opacity:.68!important;transform:rotate(-27deg)!important;transform-origin:0 50%!important;clip-path:polygon(0 45%,100% 0,100% 100%,0 55%)!important;background:linear-gradient(90deg,#fda4f4a8 0%,#dc75f25c 46%,transparent 100%)!important;filter:blur(7px)!important;animation:ks-beam-breathe 3.1s ease-in-out infinite alternate!important;pointer-events:none!important}
+ #ks-gallery.ks-cinema-gallery .ks-live-beam,#ks-gallery.ks-cinema-gallery .ks-live-core{display:none!important}
+}
+@media(max-width:390px){
+ #ks-gallery.ks-cinema-gallery .ks-cinema-room{padding:19px 9px 25px!important}
+ #ks-gallery.ks-cinema-gallery .ks-cinema-screen{aspect-ratio:0.9!important;margin:0!important}
+ #ks-gallery.ks-cinema-gallery .ks-cinema-room:before{width:91px!important;height:220px!important;background-size:91px auto!important;bottom:8px!important}
+ #ks-gallery.ks-cinema-gallery .ks-cinema-room:after{left:60px!important;bottom:166px!important;width:68vw!important}
+ #ks-gallery.ks-cinema-gallery .ks-rail{margin-left:66px!important;width:calc(100% - 66px)!important;max-width:calc(100% - 66px)!important;height:83px!important;min-height:83px!important}
+ #ks-gallery.ks-cinema-gallery .ks-card{flex-basis:68px!important;width:68px!important;height:72px!important;min-height:72px!important}
+}
+
+/* MOBILE CINEMA FINAL: single coherent stage; projector outside the photo */
+@media (max-width:700px){
+ #ks-gallery.ks-cinema-gallery .ks-cinema-room{
+   position:relative!important;display:flex!important;flex-direction:column!important;
+   padding:32px 12px 135px!important;gap:0!important;overflow:hidden!important;
+   background:radial-gradient(ellipse at 50% 32%,#35143d 0%,#190a25 55%,#0d0615 100%)!important;
+   isolation:isolate!important;
+ }
+ #ks-gallery.ks-cinema-gallery .ks-cinema-title{
+   order:0!important;position:relative!important;inset:auto!important;transform:none!important;
+   margin:0 0 12px!important;padding:0 0 12px!important;width:100%!important;max-width:100%!important;
+   font-size:clamp(18px,5vw,26px)!important;line-height:1.25!important;text-align:center!important;
+   z-index:12!important;white-space:normal!important;
+ }
+ #ks-gallery.ks-cinema-gallery .ks-cinema-note{
+   order:1!important;position:relative!important;inset:auto!important;transform:none!important;
+   margin:0 auto 24px!important;max-width:90%!important;font-size:12px!important;z-index:12!important;
+ }
+ #ks-gallery.ks-cinema-gallery .ks-cinema-screen{
+   order:2!important;position:relative!important;inset:auto!important;transform:none!important;
+   width:100%!important;height:auto!important;aspect-ratio:1.06!important;
+   margin:0!important;overflow:hidden!important;z-index:6!important;
+   border:2px solid #f2a1e6!important;border-radius:21px!important;
+   box-shadow:0 0 0 5px #4b1e4f,0 0 28px #e974dc8c,inset 0 0 16px #f9c5ed!important;
+ }
+ #ks-gallery.ks-cinema-gallery .ks-cinema-screen-inner{border-radius:16px!important;overflow:hidden!important;}
+ #ks-gallery.ks-cinema-gallery .ks-cinema-main{object-fit:contain!important;}
+ #ks-gallery.ks-cinema-gallery .ks-cinema-screen:before,
+ #ks-gallery.ks-cinema-gallery .ks-cinema-screen:after{
+   content:''!important;display:block!important;position:absolute!important;top:8px!important;bottom:8px!important;
+   width:12px!important;height:auto!important;z-index:4!important;pointer-events:none!important;
+   background:repeating-linear-gradient(to bottom,#e5a0e7 0 15px,transparent 15px 29px)!important;
+   border-radius:3px!important;opacity:.8!important;
+ }
+ #ks-gallery.ks-cinema-gallery .ks-cinema-screen:before{left:3px!important;right:auto!important;}
+ #ks-gallery.ks-cinema-gallery .ks-cinema-screen:after{right:3px!important;left:auto!important;}
+ #ks-gallery.ks-cinema-gallery .ks-cinema-count{
+   order:3!important;position:relative!important;inset:auto!important;transform:none!important;
+   margin:15px auto 15px!important;z-index:8!important;
+ }
+ #ks-gallery.ks-cinema-gallery .ks-rail{
+   order:4!important;position:relative!important;inset:auto!important;transform:none!important;
+   display:flex!important;visibility:visible!important;opacity:1!important;
+   margin:0 0 0 102px!important;width:calc(100% - 102px)!important;max-width:calc(100% - 102px)!important;
+   height:96px!important;min-height:96px!important;padding:5px!important;gap:7px!important;
+   overflow-x:auto!important;z-index:8!important;
+ }
+ #ks-gallery.ks-cinema-gallery .ks-card{flex:0 0 78px!important;width:78px!important;height:83px!important;min-height:83px!important;}
+ /* Projector image is placed in reserved space BELOW screen, no photo occlusion */
+ #ks-gallery.ks-cinema-gallery .ks-cinema-room:before{
+   content:''!important;display:block!important;position:absolute!important;
+   top:auto!important;left:0!important;right:auto!important;bottom:15px!important;
+   width:104px!important;height:226px!important;
+   background:url('../images/projector-bottom.png') left bottom / 104px auto no-repeat!important;
+   z-index:10!important;opacity:1!important;transform:none!important;
+   -webkit-mask-image:none!important;mask-image:none!important;
+   filter:drop-shadow(0 0 8px #ef8bdf60)!important;pointer-events:none!important;
+ }
+ /* Glow rises from the lens toward the bottom-left of the screen, not over the photograph */
+ #ks-gallery.ks-cinema-gallery .ks-cinema-room:after{
+   content:''!important;display:block!important;position:absolute!important;
+   top:auto!important;left:72px!important;right:auto!important;bottom:175px!important;
+   width:min(42vw,190px)!important;height:115px!important;
+   background:radial-gradient(ellipse at 0% 75%,#ffd4ffbd 0%,#e68af16b 20%,#d681e02b 55%,transparent 76%)!important;
+   clip-path:polygon(0 80%,100% 0,100% 36%,0 95%)!important;
+   transform:rotate(-8deg)!important;transform-origin:0 90%!important;
+   filter:blur(8px)!important;opacity:.62!important;z-index:3!important;
+   animation:ks-beam-breathe 3.6s ease-in-out infinite alternate!important;pointer-events:none!important;
+ }
+ #ks-gallery.ks-cinema-gallery .ks-live-beam,#ks-gallery.ks-cinema-gallery .ks-live-core{display:none!important;}
+}
+@media (max-width:390px){
+ #ks-gallery.ks-cinema-gallery .ks-cinema-room{padding:25px 9px 122px!important;}
+ #ks-gallery.ks-cinema-gallery .ks-cinema-room:before{width:85px!important;height:195px!important;background-size:85px auto!important;bottom:10px!important;}
+ #ks-gallery.ks-cinema-gallery .ks-cinema-room:after{left:58px!important;bottom:153px!important;width:130px!important;}
+ #ks-gallery.ks-cinema-gallery .ks-rail{margin-left:84px!important;width:calc(100% - 84px)!important;max-width:calc(100% - 84px)!important;height:83px!important;min-height:83px!important;}
+ #ks-gallery.ks-cinema-gallery .ks-card{flex-basis:69px!important;width:69px!important;height:72px!important;min-height:72px!important;}
+}
+@media (prefers-reduced-motion:reduce){#ks-gallery.ks-cinema-gallery .ks-cinema-room:after{animation:none!important}}
+
+/* MOBILE CINEMA V2: single coherent composition; desktop unchanged */
+@media screen and (max-width:700px){
+#ks-gallery.ks-cinema-gallery .ks-stage{padding:0!important;overflow:visible!important}
+#ks-gallery.ks-cinema-gallery .ks-cinema-room{box-sizing:border-box!important;display:flex!important;flex-direction:column!important;align-items:stretch!important;justify-content:flex-start!important;position:relative!important;isolation:isolate!important;width:100%!important;height:auto!important;min-height:0!important;aspect-ratio:auto!important;overflow:hidden!important;border-radius:15px!important;padding:30px 12px 200px!important;gap:0!important;background:radial-gradient(ellipse at 50% 40%,#321238,#15091e 67%,#0c0611)!important}
+#ks-gallery.ks-cinema-gallery .ks-cinema-title{position:relative!important;order:0!important;inset:auto!important;top:auto!important;left:auto!important;right:auto!important;transform:none!important;max-width:100%!important;width:100%!important;margin:0 auto 8px!important;padding:0 0 9px!important;z-index:15!important;font-size:clamp(18px,5vw,25px)!important;line-height:1.35!important;text-align:center!important;white-space:normal!important}
+#ks-gallery.ks-cinema-gallery .ks-cinema-note{position:relative!important;order:1!important;inset:auto!important;transform:none!important;margin:0 auto 18px!important;padding:6px 12px!important;max-width:90%!important;font-size:12px!important;z-index:15!important}
+#ks-gallery.ks-cinema-gallery .ks-cinema-screen{box-sizing:border-box!important;position:relative!important;order:2!important;inset:auto!important;left:auto!important;top:auto!important;bottom:auto!important;transform:none!important;width:100%!important;height:auto!important;aspect-ratio:1.08!important;margin:0!important;padding:12px 20px!important;border:2px solid #d36dbd!important;border-radius:22px!important;overflow:hidden!important;z-index:5!important;background:#190b20!important;box-shadow:0 0 0 4px #4b2054,0 0 18px #d758c266,inset 0 0 16px #e9a0e966!important}
+#ks-gallery.ks-cinema-gallery .ks-cinema-screen-inner{width:100%!important;height:100%!important;position:relative!important;border-radius:14px!important;overflow:hidden!important}
+#ks-gallery.ks-cinema-gallery .ks-cinema-main{object-fit:contain!important;width:100%!important;height:100%!important}
+#ks-gallery.ks-cinema-gallery .ks-cinema-screen:before,#ks-gallery.ks-cinema-gallery .ks-cinema-screen:after{content:''!important;display:block!important;position:absolute!important;top:13px!important;bottom:13px!important;width:10px!important;height:auto!important;z-index:6!important;background:repeating-linear-gradient(to bottom,#f1a1e5 0 15px,transparent 15px 31px)!important;opacity:.9!important}
+#ks-gallery.ks-cinema-gallery .ks-cinema-screen:before{left:4px!important;right:auto!important}
+#ks-gallery.ks-cinema-gallery .ks-cinema-screen:after{right:4px!important;left:auto!important}
+#ks-gallery.ks-cinema-gallery .ks-cinema-arrow{width:42px!important;height:42px!important;top:50%!important;transform:translateY(-50%)!important;font-size:26px!important;z-index:12!important}
+#ks-gallery.ks-cinema-gallery .ks-cinema-left{left:12px!important;right:auto!important}
+#ks-gallery.ks-cinema-gallery .ks-cinema-right{right:12px!important;left:auto!important}
+#ks-gallery.ks-cinema-gallery .ks-cinema-expand{top:12px!important;right:12px!important;left:auto!important;transform:none!important;width:35px!important;height:35px!important}
+#ks-gallery.ks-cinema-gallery .ks-cinema-count{position:relative!important;order:3!important;inset:auto!important;left:auto!important;bottom:auto!important;top:auto!important;transform:none!important;z-index:10!important;margin:14px auto 22px!important;font-size:13px!important}
+#ks-gallery.ks-cinema-gallery .ks-rail{box-sizing:border-box!important;position:relative!important;order:4!important;inset:auto!important;left:auto!important;right:auto!important;top:auto!important;bottom:auto!important;transform:none!important;display:flex!important;width:calc(100% - 112px)!important;max-width:calc(100% - 112px)!important;height:94px!important;min-height:94px!important;margin:0 0 0 auto!important;padding:6px!important;gap:7px!important;overflow-x:auto!important;overflow-y:hidden!important;z-index:10!important;border:1px solid #bb70bc99!important;border-radius:10px!important;background:#210c2ad9!important}
+#ks-gallery.ks-cinema-gallery .ks-card{flex:0 0 76px!important;width:76px!important;height:78px!important;min-height:78px!important;box-sizing:border-box!important;padding:3px!important;border-radius:8px!important}
+#ks-gallery.ks-cinema-gallery .ks-card img{width:100%!important;height:100%!important;object-fit:cover!important}
+/* The real projector is in the reserved bottom zone, never over the image */
+#ks-gallery.ks-cinema-gallery .ks-cinema-room:before{content:''!important;display:block!important;position:absolute!important;inset:auto!important;left:0!important;bottom:14px!important;width:118px!important;height:180px!important;z-index:11!important;pointer-events:none!important;opacity:1!important;transform:none!important;background:url('../images/projector-bottom.png') left bottom / contain no-repeat!important;mask-image:none!important;-webkit-mask-image:none!important;filter:drop-shadow(0 0 8px #ee76c488)!important}
+#ks-gallery.ks-cinema-gallery .ks-cinema-room:after{content:''!important;display:block!important;position:absolute!important;inset:auto!important;left:78px!important;bottom:130px!important;width:120px!important;height:175px!important;z-index:4!important;pointer-events:none!important;transform:rotate(-25deg)!important;transform-origin:0 100%!important;clip-path:polygon(0 83%,100% 0,100% 46%,0 100%)!important;background:radial-gradient(ellipse at 0% 88%,#ffd6ffbb,#e38aee55 35%,transparent 80%)!important;filter:blur(10px)!important;opacity:.5!important;animation:ks-beam-breathe 3.8s ease-in-out infinite alternate!important}
+#ks-gallery.ks-cinema-gallery .ks-cinema-projector,#ks-gallery.ks-cinema-gallery .ks-cinema-beam,#ks-gallery.ks-cinema-gallery .ks-live-light{display:none!important}
+#ks-gallery.ks-cinema-gallery .ks-bottom{position:relative!important;z-index:12!important}
+}
+@media screen and (max-width:390px){#ks-gallery.ks-cinema-gallery .ks-cinema-room{padding:20px 9px 175px!important}#ks-gallery.ks-cinema-gallery .ks-rail{width:calc(100% - 92px)!important;max-width:calc(100% - 92px)!important;height:80px!important;min-height:80px!important}#ks-gallery.ks-cinema-gallery .ks-card{flex-basis:66px!important;width:66px!important;height:66px!important;min-height:66px!important}#ks-gallery.ks-cinema-gallery .ks-cinema-room:before{width:98px!important;height:150px!important}#ks-gallery.ks-cinema-gallery .ks-cinema-room:after{left:62px!important;bottom:115px!important}}
+@media screen and (max-width:700px) and (prefers-reduced-motion:reduce){#ks-gallery.ks-cinema-gallery .ks-cinema-room:after{animation:none!important}}
+
+/* Mobile cinema stage rebuild v2 — isolated from desktop */
+@media screen and (max-width:700px){
+ #ks-gallery.ks-cinema-gallery .ks-stage{display:block!important;overflow-y:auto!important;overflow-x:hidden!important;background:#100817!important}
+ #ks-gallery.ks-cinema-gallery .ks-cinema-room{position:relative!important;display:flex!important;flex-direction:column!important;align-items:stretch!important;box-sizing:border-box!important;isolation:isolate!important;overflow:hidden!important;width:100%!important;height:auto!important;min-height:0!important;aspect-ratio:auto!important;padding:24px 12px 215px!important;gap:0!important;border-radius:18px!important;background:radial-gradient(ellipse at 65% 44%,#3a1642 0%,#1d0b29 62%,#100713 100%)!important}
+ #ks-gallery.ks-cinema-gallery .ks-cinema-title{position:relative!important;order:0!important;inset:auto!important;transform:none!important;margin:0 auto 9px!important;width:100%!important;max-width:100%!important;padding:0 0 10px!important;font-size:clamp(18px,5vw,25px)!important;line-height:1.35!important;text-align:center!important;white-space:normal!important;z-index:8!important}
+ #ks-gallery.ks-cinema-gallery .ks-cinema-note{position:relative!important;order:1!important;inset:auto!important;transform:none!important;margin:0 auto 17px!important;padding:5px 12px!important;max-width:92%!important;z-index:8!important;font-size:12px!important}
+ #ks-gallery.ks-cinema-gallery .ks-cinema-screen{box-sizing:border-box!important;position:relative!important;order:2!important;inset:auto!important;transform:none!important;width:100%!important;height:auto!important;aspect-ratio:.91!important;margin:0!important;padding:13px 21px!important;z-index:6!important;border:2px solid #da77c9!important;border-radius:23px!important;overflow:hidden!important;background:#200d29!important;box-shadow:0 0 0 4px #4e2056,0 0 25px #d36ac580,inset 0 0 18px #eab4eb66!important}
+ #ks-gallery.ks-cinema-gallery .ks-cinema-screen-inner{width:100%!important;height:100%!important;position:relative!important;overflow:hidden!important;border-radius:15px!important;box-shadow:0 0 16px #ffa8e480!important}
+ #ks-gallery.ks-cinema-gallery .ks-cinema-main{object-fit:contain!important;width:100%!important;height:100%!important}
+ #ks-gallery.ks-cinema-gallery .ks-cinema-screen:before,#ks-gallery.ks-cinema-gallery .ks-cinema-screen:after{content:''!important;display:block!important;position:absolute!important;top:15px!important;bottom:15px!important;width:10px!important;height:auto!important;z-index:7!important;background:repeating-linear-gradient(to bottom,#f4a2e8 0 15px,transparent 15px 31px)!important;opacity:.95!important}
+ #ks-gallery.ks-cinema-gallery .ks-cinema-screen:before{left:4px!important;right:auto!important}#ks-gallery.ks-cinema-gallery .ks-cinema-screen:after{right:4px!important;left:auto!important}
+ #ks-gallery.ks-cinema-gallery .ks-cinema-arrow{top:50%!important;transform:translateY(-50%)!important;width:42px!important;height:42px!important;z-index:12!important}
+ #ks-gallery.ks-cinema-gallery .ks-cinema-left{left:10px!important;right:auto!important}#ks-gallery.ks-cinema-gallery .ks-cinema-right{right:10px!important;left:auto!important}
+ #ks-gallery.ks-cinema-gallery .ks-cinema-expand{top:12px!important;right:12px!important;z-index:12!important}
+ #ks-gallery.ks-cinema-gallery .ks-cinema-count{position:relative!important;order:3!important;inset:auto!important;transform:none!important;margin:14px auto 18px!important;z-index:7!important;font-size:13px!important}
+ #ks-gallery.ks-cinema-gallery .ks-rail{box-sizing:border-box!important;position:relative!important;order:4!important;inset:auto!important;transform:none!important;display:flex!important;align-items:center!important;width:calc(100% - 105px)!important;max-width:calc(100% - 105px)!important;height:91px!important;min-height:91px!important;margin:0 0 0 auto!important;padding:5px!important;gap:7px!important;overflow-x:auto!important;overflow-y:hidden!important;z-index:9!important;background:#210c2ad9!important;border:1px solid #bb70bc99!important;border-radius:10px!important}
+ #ks-gallery.ks-cinema-gallery .ks-card{flex:0 0 73px!important;width:73px!important;height:79px!important;min-height:79px!important;padding:3px!important;border-radius:8px!important}
+ #ks-gallery.ks-cinema-gallery .ks-card img{width:100%!important;height:100%!important;object-fit:cover!important}
+ /* The projector is anchored to the bottom of the scene, below the screen, with its entire silhouette visible. */
+ #ks-gallery.ks-cinema-gallery .ks-cinema-room:before{content:''!important;display:block!important;position:absolute!important;inset:auto!important;left:0!important;bottom:12px!important;width:112px!important;height:191px!important;z-index:10!important;opacity:1!important;pointer-events:none!important;transform:none!important;background:url('../images/projector-bottom.png') left bottom / contain no-repeat!important;filter:drop-shadow(0 0 12px #d867b670)!important;mask-image:linear-gradient(to right,#000 0 84%,transparent 100%)!important;-webkit-mask-image:linear-gradient(to right,#000 0 84%,transparent 100%)!important}
+ /* Light cone starts at the projector lens and reaches the lower-left of the film screen. */
+ #ks-gallery.ks-cinema-gallery .ks-cinema-room:after{content:''!important;display:block!important;position:absolute!important;inset:auto!important;left:77px!important;bottom:112px!important;width:145px!important;height:270px!important;z-index:5!important;pointer-events:none!important;transform:none!important;clip-path:polygon(0 98%,0 87%,100% 0,100% 28%)!important;background:linear-gradient(15deg,#f2a3f7b0,#d875ef70 32%,#ef9aff10 85%)!important;filter:blur(8px)!important;opacity:.58!important;animation:ks-beam-breathe 3.5s ease-in-out infinite alternate!important}
+ #ks-gallery.ks-cinema-gallery .ks-cinema-projector,#ks-gallery.ks-cinema-gallery .ks-cinema-beam,#ks-gallery.ks-cinema-gallery .ks-live-light,#ks-gallery.ks-cinema-gallery .ks-live-beam,#ks-gallery.ks-cinema-gallery .ks-live-core{display:none!important}
+ #ks-gallery.ks-cinema-gallery .ks-bottom{position:relative!important;z-index:12!important}
+}
+@media screen and (max-width:390px){#ks-gallery.ks-cinema-gallery .ks-cinema-room{padding:20px 9px 202px!important}#ks-gallery.ks-cinema-gallery .ks-rail{width:calc(100% - 99px)!important;max-width:calc(100% - 99px)!important}#ks-gallery.ks-cinema-gallery .ks-cinema-room:before{width:105px!important;height:181px!important}#ks-gallery.ks-cinema-gallery .ks-cinema-room:after{left:70px!important}}
+@media (prefers-reduced-motion:reduce){#ks-gallery.ks-cinema-gallery .ks-cinema-room:after{animation:none!important}}
+
+/* Compact mobile scene: projector and thumbnail rail share one row. */
+@media screen and (max-width:700px){
+#ks-gallery.ks-cinema-gallery .ks-cinema-room{padding:20px 10px 34px!important;overflow:hidden!important;min-height:0!important}
+#ks-gallery.ks-cinema-gallery .ks-cinema-title{margin:0 auto 8px!important;font-size:clamp(18px,4.8vw,23px)!important}
+#ks-gallery.ks-cinema-gallery .ks-cinema-note{margin:0 auto 15px!important}
+#ks-gallery.ks-cinema-gallery .ks-cinema-screen{aspect-ratio:1.05!important;z-index:8!important}
+#ks-gallery.ks-cinema-gallery .ks-cinema-count{margin:12px auto 13px!important}
+#ks-gallery.ks-cinema-gallery .ks-rail{width:calc(100% - 108px)!important;max-width:calc(100% - 108px)!important;height:91px!important;min-height:91px!important;z-index:9!important;margin:0 0 0 auto!important}
+#ks-gallery.ks-cinema-gallery .ks-cinema-room:before{left:0!important;bottom:26px!important;width:106px!important;height:151px!important;z-index:10!important;background-size:contain!important;background-position:left bottom!important;mask-image:linear-gradient(to right,#000 0 92%,transparent 100%)!important;-webkit-mask-image:linear-gradient(to right,#000 0 92%,transparent 100%)!important}
+#ks-gallery.ks-cinema-gallery .ks-cinema-room:after{left:65px!important;bottom:116px!important;width:105px!important;height:94px!important;z-index:5!important;transform:none!important;clip-path:polygon(0 90%,0 74%,100% 0,100% 36%)!important;background:linear-gradient(30deg,#f6b0ff99,#e689ff50 48%,transparent)!important;opacity:.52!important;filter:blur(7px)!important}
+#ks-gallery.ks-cinema-gallery .ks-bottom{position:relative!important;z-index:12!important}
+}
+@media screen and (max-width:390px){#ks-gallery.ks-cinema-gallery .ks-cinema-room{padding:18px 8px 32px!important}#ks-gallery.ks-cinema-gallery .ks-rail{width:calc(100% - 98px)!important;max-width:calc(100% - 98px)!important}#ks-gallery.ks-cinema-gallery .ks-cinema-room:before{width:98px!important;height:142px!important;bottom:25px!important}#ks-gallery.ks-cinema-gallery .ks-cinema-room:after{left:60px!important;bottom:113px!important}}

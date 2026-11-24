@@ -1,0 +1,19 @@
+/* Galeriye ozel kompakt ust bolum: album ekranlari ilk bakista gorunsun */
+@media (min-width: 701px) {
+  body.gallery-color-page .page-header-section {padding: 32px 0 35px !important;}
+  body.gallery-color-page .page-header-section .page-title {font-size: clamp(2.5rem, 4.3vw, 4.2rem) !important;line-height:1.08 !important;margin: 8px 0 10px !important;}
+  body.gallery-color-page .page-header-section .page-subtitle {margin: 0 !important;font-size:1rem !important;}
+  body.gallery-color-page main.section-padding {padding-top: 30px !important;}
+  body.gallery-color-page .album-intro {margin-bottom: 15px !important;max-width: 900px !important;}
+  body.gallery-color-page .album-intro h2 {font-size: clamp(1.7rem, 2.6vw, 2.35rem) !important;line-height:1.2 !important;margin: 5px 0 7px !important;}
+  body.gallery-color-page .album-intro p {margin: 0 !important;font-size:.95rem !important;}
+  body.gallery-color-page .album-shelf {margin-top: 20px !important;}
+}
+@media (max-width: 700px) {
+  body.gallery-color-page .page-header-section {padding: 32px 0 !important;}
+  body.gallery-color-page .page-header-section .page-title {font-size:clamp(2rem,9vw,3rem) !important;line-height:1.08 !important;margin:8px 0 !important;}
+  body.gallery-color-page main.section-padding {padding-top: 28px !important;}
+  body.gallery-color-page .album-intro {margin-bottom: 15px !important;}
+  body.gallery-color-page .album-intro h2 {font-size:clamp(1.55rem,6vw,2rem) !important;line-height:1.2 !important;margin:8px 0 !important;}
+  body.gallery-color-page .album-shelf {margin-top:18px !important;}
+}

@@ -1,0 +1,15 @@
+/* Gentle ink appearance: static position, soft opacity and focus only. */
+.book-page .reading-reveal{opacity:1;filter:none}
+@media (prefers-reduced-motion:no-preference){
+  .book-page.reading-active .reading-reveal{
+    animation:readingAppear .72s cubic-bezier(.2,.65,.25,1) both;
+    animation-delay:var(--reading-delay,0ms);
+  }
+  @keyframes readingAppear{
+    0%{opacity:0;filter:blur(2.5px)}
+    100%{opacity:1;filter:blur(0)}
+  }
+}
+@media(prefers-reduced-motion:reduce){
+ .book-page .reading-reveal{opacity:1!important;filter:none!important;animation:none!important}
+}

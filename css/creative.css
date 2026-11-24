@@ -1,0 +1,54 @@
+/* CREATIVE STUDIO — alternate light, playful art-direction. Admin palette variables remain intact. */
+:root{--cs-ink:var(--text-black,#171923);--cs-lime:var(--wix-lime,#d9ff69);--cs-lilac:var(--wix-lavender,#d9c6ff);--cs-paper:var(--bg-page,#faf9f6)}
+body{background:var(--cs-paper)!important;overflow-x:hidden}
+.site-header{background:rgba(255,255,255,.95)!important;color:var(--cs-ink)!important;border-bottom:2px solid var(--cs-ink)!important;backdrop-filter:blur(18px)!important}
+.site-header .header-inner{min-height:76px!important}
+.site-header .logo-name,.site-header .logo-role-tag,.site-header .nav-link{color:var(--cs-ink)!important}
+.site-header .logo-badge{background:var(--cs-lilac)!important;color:var(--cs-ink)!important;border:2px solid var(--cs-ink)!important;border-radius:14px!important;transform:rotate(-9deg)!important}
+.site-header .nav-link{border-radius:100px!important}
+.site-header .nav-link.active{background:var(--cs-lime)!important;color:var(--cs-ink)!important;box-shadow:3px 3px 0 var(--cs-ink)!important}
+.site-header .lang-btn:not(.active){color:var(--cs-ink)!important;border-color:var(--cs-ink)!important}
+.site-header .mobile-menu-toggle{background:var(--cs-lime)!important;color:var(--cs-ink)!important;border:2px solid var(--cs-ink)!important}
+.hero-banner{position:relative;background:var(--cs-paper)!important;color:var(--cs-ink)!important;padding:clamp(50px,7vw,110px) 0 45px!important;min-height:auto!important;isolation:isolate}
+.hero-banner:before{content:'✳'!important;position:absolute!important;top:7%!important;left:45%!important;width:auto!important;height:auto!important;font-size:clamp(6rem,18vw,16rem)!important;color:var(--cs-lilac)!important;opacity:.4!important;transform:rotate(-15deg)!important;border:0!important;border-radius:0!important;z-index:-1!important}
+.hero-banner:after{content:'✦'!important;position:absolute!important;right:6%!important;top:10%!important;font-size:4rem!important;color:var(--cs-ink)!important;opacity:1!important}
+.wix-hero-grid{display:grid!important;grid-template-columns:minmax(0,1.1fr) minmax(320px,.9fr)!important;gap:clamp(30px,6vw,100px)!important;align-items:center!important}
+.wix-intro-content{grid-column:1!important;grid-row:1!important;align-items:flex-start!important;gap:26px!important}
+.wix-lavender-card{grid-column:2!important;grid-row:1!important;background:var(--cs-lilac)!important;border:3px solid var(--cs-ink)!important;border-radius:36px!important;padding:22px!important;box-shadow:16px 16px 0 var(--cs-lime)!important;max-width:unset!important;transform:rotate(3deg)!important;animation:cs-bounce-in .9s cubic-bezier(.2,.8,.2,1) both!important}
+.wix-lavender-card:before{content:''!important;position:absolute!important;inset:auto -15px -15px auto!important;width:100px!important;height:100px!important;background:var(--cs-lime)!important;border:2px solid var(--cs-ink)!important;border-radius:50%!important;z-index:-1!important;opacity:1!important}
+.portrait-topline{color:var(--cs-ink)!important;font-weight:900!important;letter-spacing:.15em!important}
+.wix-giant-hello{display:block!important;font-size:clamp(3.5rem,7vw,7rem)!important;line-height:1!important;color:var(--cs-ink)!important;letter-spacing:-.1em!important;transform:rotate(-5deg)!important}
+.wix-photo-card{border:3px solid var(--cs-ink)!important;border-radius:22px!important;overflow:hidden!important;box-shadow:8px 8px 0 var(--cs-ink)!important;background:#eee!important;transform:rotate(-2deg)!important}
+.wix-photo-img{width:100%!important;height:clamp(320px,36vw,500px)!important;object-fit:cover!important;object-position:center top!important;filter:none!important}
+.wix-social-badge{background:var(--cs-lime)!important;color:var(--cs-ink)!important;border:2px solid var(--cs-ink)!important;border-radius:100px!important;left:12px!important;bottom:12px!important}
+.wix-card-footer{display:flex!important;justify-content:space-between!important;align-items:center!important;border:0!important;margin-top:15px!important;padding:12px 0 0!important;gap:12px!important}
+.wix-card-name{color:var(--cs-ink)!important;font-size:clamp(1.5rem,2.3vw,2.5rem)!important}
+.wix-card-role{color:var(--cs-ink)!important;font-size:.8rem!important}
+.hero-eyebrow{background:var(--cs-lime)!important;border:2px solid var(--cs-ink)!important;border-radius:100px!important;padding:10px 18px!important;color:var(--cs-ink)!important;letter-spacing:.09em!important;font-weight:900!important;box-shadow:4px 4px 0 var(--cs-ink)!important}
+.hero-status-dot{background:var(--cs-ink)!important}
+.wix-headline{color:var(--cs-ink)!important;font-size:clamp(3.7rem,7vw,8rem)!important;line-height:.98!important;letter-spacing:-.09em!important;font-weight:950!important;max-width:850px!important;animation:cs-rise .8s ease both!important}
+.wix-headline em{color:var(--cs-ink)!important;background:linear-gradient(transparent 58%,var(--cs-lime) 58%)!important;font-style:normal!important}
+.wix-description{color:var(--cs-ink)!important;opacity:.78!important;font-size:clamp(1rem,1.3vw,1.25rem)!important;line-height:1.8!important;max-width:600px!important}
+.hero-capabilities span{background:#fff!important;color:var(--cs-ink)!important;border:2px solid var(--cs-ink)!important;border-radius:100px!important;box-shadow:3px 3px 0 var(--cs-lilac)!important}
+.wix-btn-group{display:flex!important;flex-wrap:wrap!important;gap:12px!important}
+.hero-banner .btn-wix-lime,.btn-wix-lime{background:var(--cs-lime)!important;color:var(--cs-ink)!important;border:2px solid var(--cs-ink)!important;border-radius:100px!important;box-shadow:5px 5px 0 var(--cs-ink)!important}
+.hero-banner .btn-wix-white,.hero-banner .btn-wix-outline,.btn-wix-white{background:#fff!important;color:var(--cs-ink)!important;border:2px solid var(--cs-ink)!important;border-radius:100px!important;box-shadow:5px 5px 0 var(--cs-lilac)!important}
+.hero-endnote{color:var(--cs-ink)!important;margin-top:65px!important}
+.hero-endnote a{color:var(--cs-ink)!important;font-weight:900!important}
+.hero-endnote-line{background:var(--cs-ink)!important}
+.expertise-rail{background:var(--cs-ink)!important;color:#fff!important;border-block:3px solid var(--cs-ink)!important;transform:none!important}
+.expertise-rail-inner{min-height:85px!important}
+.expertise-rail-inner b,.expertise-rail .rail-spark{color:var(--cs-lime)!important}
+.section-padding{position:relative}
+.section-header h2,.page-title{font-size:clamp(2.7rem,5.5vw,6rem)!important;letter-spacing:-.07em!important;line-height:1.04!important}
+.section-header:after{background:var(--cs-lime)!important;width:100%!important;height:8px!important;opacity:1!important;border:2px solid var(--cs-ink)!important;border-radius:10px!important}
+.project-card,.blog-card,.gallery-card,.profile-card{border:2px solid var(--cs-ink)!important;border-radius:24px!important;box-shadow:7px 7px 0 var(--cs-lilac)!important;transition:transform .3s ease,box-shadow .3s ease!important}
+.project-card:hover,.blog-card:hover,.gallery-card:hover{transform:translateY(-9px) rotate(-1deg)!important;box-shadow:12px 14px 0 var(--cs-lime)!important}
+.page-header-section{background:var(--cs-lilac)!important;color:var(--cs-ink)!important;border-bottom:3px solid var(--cs-ink)!important}
+.page-header-section h1,.page-header-section p{color:var(--cs-ink)!important}
+@keyframes cs-rise{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+@keyframes cs-bounce-in{from{opacity:0;transform:translateY(30px) rotate(9deg)}to{opacity:1;transform:translateY(0) rotate(3deg)}}
+@media(max-width:1050px){.wix-hero-grid{grid-template-columns:minmax(0,1fr) minmax(270px,.9fr)!important;gap:35px!important}.wix-headline{font-size:clamp(3.2rem,6vw,6rem)!important}}
+@media(max-width:768px){.site-header .main-nav{background:#fff!important;color:var(--cs-ink)!important;z-index:9999!important}.site-header .main-nav .nav-link{color:var(--cs-ink)!important}.site-header .main-nav .nav-link.active{color:var(--cs-ink)!important}.hero-banner{padding:42px 0!important}.wix-hero-grid{display:flex!important;flex-direction:column!important;gap:36px!important}.wix-intro-content{order:1!important;width:100%!important}.wix-lavender-card{order:2!important;width:min(90%,460px)!important;margin-right:15px!important;transform:rotate(2deg)!important}.wix-headline{font-size:clamp(3.2rem,12vw,5.6rem)!important}.wix-photo-img{height:390px!important}.hero-endnote{margin-top:45px!important}.expertise-rail-inner{flex-wrap:wrap!important;padding:20px 0!important;gap:12px!important}.section-header h2{font-size:clamp(2.5rem,10vw,4.5rem)!important}}
+@media(max-width:420px){.wix-headline{font-size:clamp(2.9rem,12vw,4rem)!important}.wix-photo-img{height:320px!important}.wix-card-footer{flex-direction:column!important;align-items:flex-start!important}.wix-card-role{text-align:left!important}.hero-capabilities span{font-size:.65rem!important;padding:7px 9px!important}}
+@media(prefers-reduced-motion:reduce){.wix-headline,.wix-lavender-card{animation:none!important}}

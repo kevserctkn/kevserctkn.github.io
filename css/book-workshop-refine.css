@@ -1,0 +1,18 @@
+/* Refined book gutter and compact coding atelier */
+.book-spread.is-active{isolation:isolate}
+.book-spread.is-active::after{content:"";position:absolute;top:0;bottom:0;left:50%;width:26px;transform:translateX(-50%);pointer-events:none;z-index:5;background:linear-gradient(90deg,transparent,rgba(67,44,47,.14) 42%,rgba(67,44,47,.2) 50%,rgba(255,252,241,.25) 58%,transparent)}
+.book-page{scrollbar-width:none;-ms-overflow-style:none}
+.book-page::-webkit-scrollbar{display:none}
+.book-page:first-child{border-right:0}
+.book-page:last-child{border-left:0}
+.book-workshop{padding:10px 12px;margin:10px 0 12px;border-radius:10px;background:linear-gradient(145deg,#fff8ed,#f7ecd9);box-shadow:0 4px 12px #3b204214}
+.book-workshop textarea{min-height:92px;height:104px;resize:vertical;font-size:11px;line-height:1.5;scrollbar-width:thin}
+.book-workshop__actions{margin:7px 0;gap:5px}
+.book-workshop__actions button{padding:6px 9px}
+.book-workshop__preview-toggle{background:transparent!important;color:#644276!important;border-color:#b59bc0!important}
+.book-workshop__result{margin:7px 0 0}
+.book-workshop iframe{height:115px;margin-top:7px}
+.book-workshop__note{font-size:10px!important;line-height:1.4!important;margin:6px 0 0!important}
+.book-workshop:not(.preview-open) iframe{display:none}
+.book-workshop:not(.preview-open) .book-workshop__result{display:none}
+@media(max-width:700px){.book-spread.is-active::after{display:none}.book-workshop textarea{height:100px;min-height:90px}}

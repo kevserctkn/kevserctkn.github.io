@@ -1,0 +1,14 @@
+
+/* Impact upgrade: intro, magnetic elements, 3D cards, scroll depth */
+.impact-intro{position:fixed;inset:0;z-index:99999;background:#101115;display:grid;place-items:center;pointer-events:none;animation:impact-exit .85s 1.65s cubic-bezier(.7,0,.2,1) forwards}
+.impact-intro-inner{text-align:center;color:#d4fc66;font:800 clamp(4rem,16vw,14rem)/1 'Syne',sans-serif;letter-spacing:-.095em;animation:impact-title 1.1s both}
+.impact-intro-small{display:block;color:#fff;font:600 11px 'DM Sans',sans-serif;letter-spacing:.4em;margin-top:24px}
+@keyframes impact-title{from{opacity:0;transform:translateY(80px) scale(.88);filter:blur(12px)}to{opacity:1;transform:translateY(0) scale(1);filter:blur(0)}}
+@keyframes impact-exit{to{transform:translateY(-102%);visibility:hidden}}
+.impact-tilt{transform-style:preserve-3d;transition:transform .24s ease,box-shadow .3s ease!important;will-change:transform}
+.impact-tilt:hover{box-shadow:0 28px 60px rgba(0,0,0,.18)!important}
+.impact-magnetic{transition:transform .18s ease!important;will-change:transform}
+.impact-spotlight{position:absolute;inset:0;pointer-events:none;background:radial-gradient(350px circle at var(--impact-x,50%) var(--impact-y,50%),rgba(212,252,102,.14),transparent 70%);opacity:0;transition:opacity .3s}
+.impact-tilt:hover .impact-spotlight{opacity:1}
+@media(hover:none),(pointer:coarse){.impact-tilt,.impact-magnetic{transform:none!important}.impact-spotlight{display:none}}
+@media(prefers-reduced-motion:reduce){.impact-intro{display:none}.impact-tilt,.impact-magnetic{transform:none!important;transition:none!important}}

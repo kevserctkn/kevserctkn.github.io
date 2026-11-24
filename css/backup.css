@@ -1,0 +1,10 @@
+
+#kevser-backup-tools{position:fixed;right:14px;bottom:14px;z-index:4000;font:13px/1.5 Arial,sans-serif;color:#fff}
+#backup-toggle{background:#d4fc66;color:#111;border:2px solid #111;border-radius:12px;padding:11px 15px;font-weight:800;box-shadow:0 4px 20px #0004;cursor:pointer}
+#backup-panel{position:absolute;right:0;bottom:54px;width:min(320px,calc(100vw - 28px));background:#1a1c21;color:white;border:1px solid #6b6f74;border-radius:14px;padding:18px;box-shadow:0 12px 36px #0006}
+#backup-panel[hidden]{display:none!important}
+#backup-panel strong{font-size:16px}
+#backup-panel p{color:#d1d5db;margin:9px 0 13px}
+#backup-panel button{display:block;width:100%;background:#d4fc66;color:#111;border:0;border-radius:8px;margin:8px 0;padding:10px;cursor:pointer;font-weight:700}
+#backup-panel button+button{background:#fff}
+#backup-status{font-weight:700;overflow-wrap:anywhere}

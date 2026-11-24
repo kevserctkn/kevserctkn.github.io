@@ -1,0 +1,13 @@
+/* FlipBuilder-inspired realistic book depth and dynamic page shadows */
+.book-stage{perspective:1800px;perspective-origin:50% 45%}
+.book-pages{transform-style:preserve-3d;filter:drop-shadow(0 17px 18px rgba(30,14,38,.19)) drop-shadow(0 34px 28px rgba(30,14,38,.11))}
+.book-pages:before{content:"";position:absolute;inset:7px 4px -7px;z-index:-1;border-radius:12px;background:repeating-linear-gradient(to bottom,#e3d4c0 0px,#fff8e9 1px,#d9c9b7 2px,#fff8e9 3px);box-shadow:0 9px 0 #c7b49e,0 14px 13px #27152a25}
+.book-spread.is-active .book-page:first-child{box-shadow:inset -18px 0 28px -20px #47332e80}
+.book-spread.is-active .book-page:last-child{box-shadow:inset 18px 0 28px -20px #47332e80}
+.book-turn-sheet{transition:transform 540ms cubic-bezier(.3,.1,.18,1);filter:drop-shadow(5px 8px 7px #24152635)}
+.book-turn-sheet .book-turn-face:after{background:linear-gradient(90deg,rgba(39,23,40,.22),transparent 30%,rgba(49,30,50,.14) 80%,rgba(27,18,29,.27));transition:opacity .54s}
+.book-turn-sheet .book-turn-face.front:before{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;background:linear-gradient(90deg,transparent 0%,#fff9e71a 62%,#fff8e55c 92%,#4e344020 100%);border-radius:inherit}
+.book-turn-sheet.is-turning{filter:drop-shadow(12px 9px 11px #24152645)}
+.book-page{background-image:radial-gradient(ellipse at 20% 15%,#ffffff55,transparent 70%),repeating-linear-gradient(0deg,#7b5e3b05 0px,#7b5e3b05 1px,transparent 1px,transparent 5px)}
+@media(max-width:700px){.book-pages:before{inset:5px 4px -5px}.book-turn-sheet{transform-origin:left center!important}.book-turn-sheet.reverse{transform-origin:right center!important}}
+@media(prefers-reduced-motion:reduce){.book-turn-sheet{transition:none!important}}

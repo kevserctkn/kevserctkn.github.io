@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 400" width="100%" height="100%">
+  <defs>
+    <linearGradient id="g5" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#be123c"/>
+      <stop offset="100%" stop-color="#fb7185"/>
+    </linearGradient>
+  </defs>
+  <rect width="500" height="400" fill="url(#g5)"/>
+  <rect x="140" y="100" width="100" height="150" rx="4" fill="#881337"/>
+  <rect x="260" y="100" width="100" height="150" rx="4" fill="#881337"/>
+  <line x1="250" y1="100" x2="250" y2="250" stroke="#fff" stroke-width="4"/>
+  <text x="250" y="340" text-anchor="middle" fill="#ffffff" font-family="sans-serif" font-size="16" font-weight="700">Akademik Araştırma &amp; Kitap Okuma</text>
+</svg>
