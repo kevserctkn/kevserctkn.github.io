@@ -1,0 +1,27 @@
+WEB TASARIMININ TEMELLERİ — VİZE TESLİM NOTU
+
+Öğrenci: Kevser Çetkin
+Öğrenci numarası: 20261132805
+Proje: Türkçe ve İngilizce çok sayfalı kişisel web sitesi
+
+CANLI ADRES
+https://kevserctkn.github.io/ (GitHub Pages)
+Satın alınmış özel alan adının bu siteye yönlendirilmesi burada doğrulanmamıştır.
+
+SAYFALAR
+Anasayfa: index.html / index-en.html
+Hakkımda: hakkimda.html / about.html
+Projeler: projeler.html / projects.html
+Blog: blog.html / blog-en.html; her dilde üç yazı
+Galeri: galeri.html / gallery.html
+İletişim: iletisim.html / contact.html
+
+İLETİŞİM FORMU
+Form e-posta uygulamasında taslak açar. Sunucu üzerinden otomatik gönderim yapmaz.
+
+TEAMS TESLİMİ
+20261132805-WEB.zip gerçek ZIP arşividir. Yönergedeki özel yöntem için aynı arşivin 20261132805-WEB.PDF adlı kopyası yüklenir; uzantısı PDF olsa da içerik ZIP arşividir.
+Word ekran görüntüsü raporu ve YouTube tanıtım bağlantısı Teams'e ayrıca eklenir. Yönetim paneli istenmemektedir.
+
+KİŞİSEL DOĞRULAMA
+Ders programının ve iletişim bilgilerinin doğruluğunu öğrenci kontrol etmelidir. Grafik örnekleri temsili portfolyo çalışmalarındandır; öğretmen internet kaynaklı çalışma bekliyorsa kaynak gösterimi ayrıca teyit edilmelidir.

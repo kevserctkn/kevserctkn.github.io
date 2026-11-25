@@ -1,0 +1,7 @@
+Bu klasör kişisel portfolyo sitesinin dosyalarını içerir.
+
+Başlangıç: index.html (Türkçe), index-en.html (English)
+Yerel açılış: index.html dosyasını tarayıcıda açın veya baslat.bat kullanın.
+Canlı yayın: https://kevserctkn.github.io/
+
+Teslim ve form notları için README.md ile teslim_bilgisi.txt dosyalarına bakın.

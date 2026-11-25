@@ -1,0 +1,7 @@
+SİNEMATİK GALERİ — KULLANIM NOTU
+
+Galeri sayfasında giriş animasyonu, film şeridi ve albümler bulunur. Giriş animasyonu Atla düğmesi veya Esc ile kapatılabilir. Albümü açınca fotoğraflar film şeridinde görünür; fareyle yatay kaydırma yapılabilir. Albüm X düğmesi veya Esc ile kapanır.
+
+Türkçe: galeri.html
+İngilizce: gallery.html
+Canlı site: https://kevserctkn.github.io/

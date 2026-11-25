@@ -1,0 +1,9 @@
+PROJE DURUM NOTU
+
+Site GitHub Pages üzerinde https://kevserctkn.github.io/ adresinde yayınlanmıştır. Özel alan adı satın alındıysa bu projeye DNS ile bağlandığı ayrıca kontrol edilmelidir.
+
+İletişim formu e-posta taslağı açar; otomatik gönderim yapmaz. Site statik HTML, CSS ve JavaScript kullanır. Güncel yönergede yönetim paneli zorunlu değildir.
+
+26 HTML sayfasının title, description, H1 ve yerel bağlantıları; JavaScript dosyalarının sözdizimi kontrol edilmiştir. Site masaüstü ve dar ekran görünümünde tarayıcıda incelenmiştir.
+
+Grafik örnekleri temsili portfolyo çalışmalarındandır. Öğretmenin kaynaklı internet örnekleri şartını özellikle arayıp aramadığı doğrulanmalıdır.

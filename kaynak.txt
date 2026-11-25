@@ -1,0 +1,39 @@
+KAYNAK VE TASARIM AÇIKLAMASI — KEVSER ÇETKİN
+
+Proje: Web Tasarımının Temelleri — kişisel portfolyo (Türkçe / İngilizce)
+
+Şablon: Harici bir hazır şablon kullanılmadı. Proje, öğrencinin mevcut kişisel
+web sitesi temel alınarak HTML5, CSS3 ve JavaScript ile özgün biçimde geliştirildi.
+Bu nedenle belirtilmesi gereken bir hazır şablon URL'si yoktur.
+Tasarım ilhamı: Modern editoryal portfolyo ve etkileşimli web tasarımı yaklaşımı;
+başka bir sitenin kaynak kodu veya tasarım dosyaları kopyalanmadı.
+
+Ders notlarında örnek gösterilen The FWA (thefwa.com), Awwwards (awwwards.com) ve
+library.jjangik.kr sitelerini inceledim ve bu sitelerden aldığım genel fikirleri kendi
+yorumumla kendi sitemde uyguladım. Bu sitelerin kaynak kodu, görseli veya tasarım
+dosyaları kopyalanmadı.
+
+Teknoloji: HTML5, CSS3, JavaScript, Canvas / WebGL2; mobil ve tablet uyumlu stiller.
+3D klavye küresi ve kitap çevirme animasyonları bu projeye özgü JavaScript'tir.
+Harici JavaScript veya CSS kütüphanesi kullanılmadı.
+
+Fotoğraflar: Kişisel portre ve galeri fotoğrafları öğrencinin proje arşivinden.
+Projeler: images/editorial-project-1.webp ile editorial-project-5.webp arası
+bu portfolyo için oluşturulmuş temsili grafik tasarım örnekleridir; Grafik
+Animasyon 1 dersinde hazırlanmış çalışmalar olarak sunulmaz.
+
+Blog görselleri: images/blog-gercek-ekran-1.webp ... blog-gercek-ekran-3.webp
+bu projenin kendi HTML/CSS sayfalarının Chromium tarayıcısında görüntülenmesiyle
+elde edilmiş gerçek site ekran görüntüleridir:
+  1. Hakkımda sayfası (masaüstü)
+  2. Hakkımda sayfası (masaüstü 1280 px / mobil 390 px)
+  3. Galeri sayfası (masaüstü)
+Görüntüler performans ölçümü veya Lighthouse raporu değildir.
+
+İletişim formu: E-posta uygulamasında taslak açan HTML/JavaScript formudur. Otomatik gönderim yapmaz. Sunucu taraflı gönderim yayın altyapısı seçilince eklenebilir.
+
+Kaynak kodu ve görsellerin tamamı teslim klasöründedir.
+
+Güvenlik notu: Şifresi kaynak kodunda açık bulunan eski örnek yönetici
+paneli yayın paketinden çıkarıldı; bu panel gerçek sunucu tarafı kimlik
+doğrulaması sağlamıyordu.

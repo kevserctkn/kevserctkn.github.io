@@ -1,0 +1,1 @@
+Türkçe siteyi index.html, İngilizce siteyi index-en.html dosyasından açın. Dosya ve klasör adlarını değiştirmeyin. Ayrıntılar README.md dosyasındadır.

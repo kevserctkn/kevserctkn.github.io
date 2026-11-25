@@ -1,0 +1,7 @@
+SON SÜRÜM — 25.11.2026
+
+Türkçe ve İngilizce kişisel portfolyo sitesi bu klasördedir. HTML dosyalarıyla css, js, images, videos ve ornek-projeler klasörlerini birlikte koruyun.
+
+Canlı site: https://kevserctkn.github.io/ (GitHub Pages). İletişim formu e-posta taslağı açar; otomatik gönderim yapmaz. Özel alan adı DNS bağlantısı ayrıca doğrulanmalıdır.
+
+Teams için ZIP arşivinin bir kopyasının uzantısı yönergede istendiği gibi .PDF yapılır. Bu kopya gerçek PDF değil, ZIP arşividir. Word raporu ve YouTube bağlantısı ayrıca teslim edilir.

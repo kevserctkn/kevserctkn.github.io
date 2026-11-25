@@ -1,0 +1,12 @@
+SON TESLİM KONTROLÜ
+
+Canlı site: https://kevserctkn.github.io/
+İletişim formu: E-posta taslağı açar; otomatik gönderim yapmaz.
+Yönetim paneli: Güncel yönergeye göre zorunlu değil.
+
+Teams'e ekle:
+1. 20261132805-WEB.PDF (ZIP içeriğinin yönergedeki uzantı değiştirilmiş kopyası)
+2. 20261132805-Kevser Çetkin.docx (ekran görüntüsü raporu)
+3. YouTube tanıtım bağlantısı (Teams'teki ayrı alana)
+
+Proje arşivi 300 MB sınırının altındadır. Özel alan adı DNS bağlantısını ayrıca kontrol edin.
