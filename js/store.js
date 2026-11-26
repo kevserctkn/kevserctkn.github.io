@@ -59,7 +59,7 @@ const SiteTranslator = {
     "projelerim": "Projects",
     "iletişim": "Contact",
     "tüm özgeçmişi ve ders programını gör →": "View Full Resume & Curriculum →",
-    "tüm projeleri incele (6 adet) →": "Explore All Projects (6 Total) →",
+    "tüm projeleri incele (5 adet) →": "Explore All Projects (5 Total) →",
     "tüm fotoğraf galerisini aç →": "Open Full Gallery →",
     "yeni bölüm / panel ekle": "Add New Panel / Section",
     "yeni proje ekle": "Add New Project",
